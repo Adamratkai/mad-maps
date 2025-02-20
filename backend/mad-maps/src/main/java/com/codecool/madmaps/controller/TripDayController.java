@@ -6,6 +6,7 @@ import com.codecool.madmaps.DTO.TripDay.TripDayDTO;
 import com.codecool.madmaps.service.TripDayService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,5 +26,10 @@ public class TripDayController {
     @GetMapping("/{tripDayId}")
     public TripDayDTO getTripDayById(@PathVariable UUID tripDayId) {
         return this.tripDayService.getTripDayById(tripDayId);
+    }
+
+    @GetMapping("/")
+    public List<TripDayDTO> getAllTripDays() {
+        return this.tripDayService.getAllTripDays();
     }
 }
