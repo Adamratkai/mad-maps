@@ -37,7 +37,7 @@ public class TripService {
         return new TripDTO(
                 newTrip.publicId(),
                 newTrip.name(),
-                newTrip.tripDayIds().stream().map(id -> tripDayService.getTripDayById(id)).toList(),
+                newTrip.tripDayIds(),
                 newTrip.startDate(),
                 newTrip.endDate()
         );
@@ -61,7 +61,7 @@ public class TripService {
             tripDTOList.add(new TripDTO(
                     trip.publicId(),
                     trip.name(),
-                    trip.tripDayIds().stream().map(id -> tripDayService.getTripDayById(id)).toList(),
+                    trip.tripDayIds(),
                     trip.startDate(),
                     trip.endDate()
 
@@ -75,7 +75,7 @@ public class TripService {
         return new TripDTO(
                 trip.publicId(),
                 trip.name(),
-                trip.tripDayIds().stream().map(id -> tripDayService.getTripDayById(id)).toList(),
+                trip.tripDayIds(),
                 trip.startDate(),
                 trip.endDate()
         );
