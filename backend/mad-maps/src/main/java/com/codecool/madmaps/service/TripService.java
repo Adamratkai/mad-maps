@@ -4,12 +4,12 @@ package com.codecool.madmaps.service;
 import com.codecool.madmaps.DTO.Trip.TripCreateDTO;
 import com.codecool.madmaps.DTO.Trip.TripDTO;
 import com.codecool.madmaps.DTO.Trip.TripUpdateDTO;
+import com.codecool.madmaps.DTO.TripDay.TripDayCreateDTO;
 import com.codecool.madmaps.DTO.TripDay.TripDayDTO;
 import com.codecool.madmaps.model.Trip.Trip;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 
 @Service
@@ -32,14 +32,27 @@ public class TripService {
                 tripCreateDTO.endDate()
 
         );
+        addTripDays(tripCreateDTO, newTrip);
         trips.add(newTrip);
         return new TripDTO(
                 newTrip.publicId(),
                 newTrip.name(),
-                new ArrayList<>(),
+                newTrip.tripDayIds().stream().map(id -> tripDayService.getTripDayById(id)).toList(),
                 newTrip.startDate(),
                 newTrip.endDate()
         );
+    }
+
+    private void addTripDays(TripCreateDTO tripCreateDTO, Trip newTrip) {
+        Period period = Period.between(tripCreateDTO.startDate(), tripCreateDTO.endDate());
+        for (int i = 0; i <= period.getDays(); i++) {
+            TripDayDTO tripDayDTO = tripDayService.createTripDay(new TripDayCreateDTO(
+                            tripCreateDTO.startDate().plusDays(i),
+                            new ArrayList<>()
+                    )
+            );
+            newTrip.tripDayIds().add(tripDayDTO.publicId());
+        }
     }
 
     public List<TripDTO> getTrips() {
@@ -48,7 +61,7 @@ public class TripService {
             tripDTOList.add(new TripDTO(
                     trip.publicId(),
                     trip.name(),
-                    trip.tripDayIds().stream().map( id -> tripDayService.getTripDayById(id)).toList(),
+                    trip.tripDayIds().stream().map(id -> tripDayService.getTripDayById(id)).toList(),
                     trip.startDate(),
                     trip.endDate()
 
@@ -62,7 +75,7 @@ public class TripService {
         return new TripDTO(
                 trip.publicId(),
                 trip.name(),
-                trip.tripDayIds().stream().map( id -> tripDayService.getTripDayById(id)).toList(),
+                trip.tripDayIds().stream().map(id -> tripDayService.getTripDayById(id)).toList(),
                 trip.startDate(),
                 trip.endDate()
         );
