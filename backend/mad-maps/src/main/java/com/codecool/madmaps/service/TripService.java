@@ -8,18 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class TripService {
 
     private Set<Trip> trips;
+    private TripDayService tripDayService;
 
-    public TripService() {
+    public TripService(TripDayService tripDayService) {
         trips = new HashSet<>();
+        this.tripDayService = tripDayService;
     }
 
     public TripDTO createTrip(TripCreateDTO tripCreateDTO) {
@@ -38,6 +37,31 @@ public class TripService {
                 new ArrayList<>(),
                 newTrip.startDate(),
                 newTrip.endDate()
+        );
+    }
+
+    public List<TripDTO> getTrips() {
+        List<TripDTO> tripDTOList = new ArrayList<>();
+        for (Trip trip : trips) {
+            tripDTOList.add(new TripDTO(
+                    trip.publicId(),
+                    trip.tripDayIds().stream().map( id -> tripDayService.getTripDayById(id)).toList(),
+                    trip.startDate(),
+                    trip.endDate()
+
+            ));
+        }
+        return tripDTOList;
+    }
+
+    public TripDTO getTripById(UUID tripId) {
+        Trip trip = trips.stream().filter(t -> t.publicId().equals(tripId)).findFirst().orElseThrow(NoSuchElementException::new);
+        return new TripDTO(
+                trip.publicId(),
+                trip.name(),
+                trip.tripDayIds().stream().map( id -> tripDayService.getTripDayById(id)).toList(),
+                trip.startDate(),
+                trip.endDate()
         );
     }
 }
