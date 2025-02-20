@@ -45,6 +45,7 @@ public class TripService {
         for (Trip trip : trips) {
             tripDTOList.add(new TripDTO(
                     trip.publicId(),
+                    trip.name(),
                     trip.tripDayIds().stream().map( id -> tripDayService.getTripDayById(id)).toList(),
                     trip.startDate(),
                     trip.endDate()
