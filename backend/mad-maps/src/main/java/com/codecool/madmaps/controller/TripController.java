@@ -30,7 +30,7 @@ public class TripController {
     }
 
     @GetMapping("/{tripId}")
-    public TripDTO getTripById(@RequestParam UUID tripId) {
+    public TripDTO getTripById(@PathVariable UUID tripId) {
         return tripService.getTripById(tripId);
     }
 }
