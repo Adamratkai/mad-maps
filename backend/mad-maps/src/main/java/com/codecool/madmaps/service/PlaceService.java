@@ -1,6 +1,7 @@
 package com.codecool.madmaps.service;
 
 
+import com.codecool.madmaps.DTO.Place.PlaceCreateDTO;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
 import com.codecool.madmaps.model.Place.Place;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,11 @@ public class PlaceService {
                 place.tripId(),
                 place.time()
         );
+    }
+
+    public PlaceDTO createPlace(PlaceCreateDTO placeCreateDTO) {
+        Place place = new Place(UUID.randomUUID(), placeCreateDTO.name(), placeCreateDTO.rating(), placeCreateDTO.price(), placeCreateDTO.img(), placeCreateDTO.tripId(), placeCreateDTO.time());
+        this.places.add(place);
+        return new PlaceDTO(place.publicId(), place.name(), place.rating(), place.price(), place.img(), place.tripId(), place.time());
     }
 }
