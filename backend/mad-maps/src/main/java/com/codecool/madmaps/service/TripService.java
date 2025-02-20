@@ -3,6 +3,8 @@ package com.codecool.madmaps.service;
 
 import com.codecool.madmaps.DTO.Trip.TripCreateDTO;
 import com.codecool.madmaps.DTO.Trip.TripDTO;
+import com.codecool.madmaps.DTO.Trip.TripUpdateDTO;
+import com.codecool.madmaps.DTO.TripDay.TripDayDTO;
 import com.codecool.madmaps.model.Trip.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,5 +66,17 @@ public class TripService {
                 trip.startDate(),
                 trip.endDate()
         );
+    }
+
+    public boolean updateTrip(UUID tripId, TripUpdateDTO tripUpdateDTO) {
+        Trip trip = trips.stream().filter(t -> t.publicId().equals(tripId)).findFirst().orElseThrow(NoSuchElementException::new);
+        trips.remove(trip);
+        return trips.add(new Trip(
+                tripId,
+                tripUpdateDTO.name(),
+                tripUpdateDTO.tripDays().stream().map(TripDayDTO::publicId).toList(),
+                tripUpdateDTO.startDate(),
+                tripUpdateDTO.endDate()
+        ));
     }
 }
