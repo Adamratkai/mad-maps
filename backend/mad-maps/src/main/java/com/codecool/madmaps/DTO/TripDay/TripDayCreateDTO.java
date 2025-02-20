@@ -1,4 +1,6 @@
 package com.codecool.madmaps.DTO.TripDay;
 
-public record TripDayCreateDTO() {
+import java.util.List;
+
+public record TripDayCreateDTO(List<Integer> placeIds) {
 }
