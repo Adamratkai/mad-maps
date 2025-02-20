@@ -1,4 +1,10 @@
 package com.codecool.madmaps.DTO.Trip;
 
-public record TripDTO() {
+import com.codecool.madmaps.DTO.TripDay.TripDayDTO;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+
+public record TripDTO(UUID publicId, String name, List<TripDayDTO> tripDays, LocalDate startDate, LocalDate endDate) {
 }
