@@ -1,4 +1,7 @@
 package com.codecool.madmaps.DTO.Place;
 
-public record PlaceDTO() {
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+public record PlaceDTO(UUID publicId, String name, double rating, double price, String img, UUID tripId, LocalDateTime time) {
 }
