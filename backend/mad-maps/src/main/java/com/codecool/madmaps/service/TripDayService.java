@@ -35,4 +35,8 @@ public class TripDayService {
         List<Place> places = tripDay.placeIds().stream().map(currentId -> this.placeService.getPlaceById(currentId));
         return new TripDayDTO(tripDay.publicId(), tripDay.date(), places);
     }
+
+    public List<TripDayDTO> getAllTripDays() {
+       return this.tripDays.stream().map(currentDay -> new TripDayDTO(currentDay.publicId(), currentDay.date(), currentDay.placeIds().stream().map(currentId -> this.placeService.getPlaceById(currentId))));
+    }
 }
