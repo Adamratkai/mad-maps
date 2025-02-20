@@ -4,10 +4,12 @@ package com.codecool.madmaps.controller;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
 import com.codecool.madmaps.service.PlaceService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/places")
@@ -22,5 +24,10 @@ public class PlaceController {
     @GetMapping("/")
     public List<PlaceDTO> getPlaces() {
         return placeService.getAllPlaces();
+    }
+
+    @GetMapping("/{placeId}")
+    public PlaceDTO getPlace(@PathVariable UUID placeId) {
+        return placeService.getPlaceById(placeId);
     }
 }
