@@ -16,8 +16,7 @@ public class TripDayController {
     }
 
     @PostMapping("/")
-    public TripDayCreateDTO createTripDay(@RequestBody TripDayCreateDTO newTripDay) {
-        this.tripDayService.createTripDay(newTripDay);
-        return newTripDay;
+    public TripDayDTO createTripDay(@RequestBody TripDayCreateDTO newTripDay) {
+        return this.tripDayService.createTripDay(newTripDay);
     }
 }
