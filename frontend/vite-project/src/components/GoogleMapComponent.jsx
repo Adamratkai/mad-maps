@@ -9,7 +9,7 @@ const GOOGLE_MAPS_API_KEY =import.meta.env.VITE_GOOGLE_MAPS_API_KEY ;
 
 const googlaMapsLibrary = ["places"]
 
-const GoogleMapSearchBox = () => {
+const GoogleMapSearchBox = ({handleLocationChange}) => {
   const [markerPosition, setMarkerPosition] = useState(null);
 
   const onPlacesChanged = (searchBox) => {
@@ -19,7 +19,7 @@ const GoogleMapSearchBox = () => {
     if (!places.length) return;
     const targetPlaceLocation = places[0].geometry.location;
     setMarkerPosition(targetPlaceLocation);
-
+    handleLocationChange({lat: targetPlaceLocation.lat(), lng: targetPlaceLocation.lng()});
   };
   
   const onMapClick = (event,map) => {
@@ -27,6 +27,7 @@ const GoogleMapSearchBox = () => {
             if (map) {
               map.panTo(event.latLng);
               setMarkerPosition(event.latLng);
+              handleLocationChange({lat: event.latLng.lat(), lng: event.latLng.lng()});
             }
           }
 
