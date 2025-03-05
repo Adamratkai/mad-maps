@@ -22,12 +22,14 @@ public class Place {
     private Long id;
 
     @Column(nullable = false)
+    private String placeId;
+
+    @Column(nullable = false)
     private String name;
 
     private List<PlaceType> placeTypes;
     private double rating;
     private int priceLevel;
-    private List<PlaceImage> images;
     private List<OpeningHours> openingHours;
 
     @Transient
