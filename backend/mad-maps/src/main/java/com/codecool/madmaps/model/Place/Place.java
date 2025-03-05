@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.net.http.WebSocket;
+import java.util.List;
+
 @Entity
 @Table(name = "places")
 @Getter
@@ -21,9 +24,16 @@ public class Place {
     @Column(nullable = false)
     private String name;
 
-    private String placeType;
+    private List<PlaceType> placeTypes;
     private double rating;
-    private double price;
-    private String img;
+    private int priceLevel;
+    private List<PlaceImage> images;
+    private List<OpeningHours> openingHours;
+
+    @Transient
+    public double calculateScore() {
+        //TODO
+        return 0;
+    }
 
 }
