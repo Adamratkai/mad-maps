@@ -3,13 +3,8 @@ package com.codecool.madmaps.model.Place;
 import com.codecool.madmaps.model.OpeningHours.OpeningHours;
 import com.codecool.madmaps.model.PlaceType.PlaceType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.net.http.WebSocket;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,18 +19,23 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(nullable = false)
     private String placeId;
 
+
     @Column(nullable = false)
     private String name;
+
 
     @ManyToMany
     @JoinTable(name = "place_place_type", joinColumns = @JoinColumn(name = "place_id"), inverseJoinColumns = @JoinColumn(name = "place_type_id"))
     private Set<PlaceType> placeTypes;
 
     private double rating;
+
     private int priceLevel;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "opening_hours_id")
