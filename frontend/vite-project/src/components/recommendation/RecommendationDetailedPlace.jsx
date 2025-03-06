@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import axios from "axios";
 
 const MAX_RATING = 5;
 function RecommendationDetailedPlace({place_id, handlePlaceClose, onAddPlace}) {
 
     const [place, setPlace] = useState(null);
+    const modalRef = useRef(null);
 
     useEffect(() => {
       let isMounted = true;
@@ -29,14 +30,20 @@ function RecommendationDetailedPlace({place_id, handlePlaceClose, onAddPlace}) {
     }, []);
 
     function handleAddPlace() {
-        onAddPlace(place);
         handlePlaceClose();
+        onAddPlace(place);
+    }
+
+    function closeModal(e) {
+        if (e.target === modalRef.current) {
+            handlePlaceClose();
+        }
     }
 
     return (
       <>
         {place && (
-            <dialog id="my_modal_1" className="modal modal-open" onClick={handlePlaceClose}>
+            <dialog ref={modalRef} id="my_modal_2" className="modal modal-open" onClick={closeModal}>
                 <div className="modal-box">
                     <div className="card lg:card-side bg-base-100 shadow-sm">
                         <figure>
