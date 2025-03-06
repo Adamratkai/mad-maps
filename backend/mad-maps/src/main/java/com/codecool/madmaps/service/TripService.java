@@ -6,7 +6,6 @@ import com.codecool.madmaps.DTO.Trip.TripDTO;
 import com.codecool.madmaps.DTO.Trip.TripUpdateDTO;
 import com.codecool.madmaps.DTO.TripDay.TripDayCreateDTO;
 import com.codecool.madmaps.DTO.TripDay.TripDayDTO;
-import com.codecool.madmaps.model.Trip.Trip;
 import org.springframework.stereotype.Service;
 
 import java.time.Period;
