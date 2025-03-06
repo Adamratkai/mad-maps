@@ -6,6 +6,7 @@ import com.codecool.madmaps.DTO.Place.PlaceDTO;
 import com.codecool.madmaps.model.Place.Place;
 import com.codecool.madmaps.model.PlaceType.PlaceType;
 import com.codecool.madmaps.repository.PlaceRepository;
+import com.codecool.madmaps.repository.PlaceTypeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +18,11 @@ import java.util.stream.Collectors;
 public class PlaceService {
 
     private final PlaceRepository placeRepository;
+    private final PlaceTypeRepository placeTypeRepository;
 
-    public PlaceService(PlaceRepository placeRepository) {
+    public PlaceService(PlaceRepository placeRepository, PlaceTypeRepository placeTypeRepository) {
         this.placeRepository = placeRepository;
+        this.placeTypeRepository = placeTypeRepository;
     }
 
     public List<PlaceDTO> getAllPlaces() {
@@ -44,7 +47,7 @@ public class PlaceService {
 
     public PlaceDTO createPlace(PlaceCreateDTO placeCreateDTO) {
         Place place = new Place();
-        Set<PlaceType> placeTypes = placeCreateDTO.placeTypes().stream().map(this::createPlaceTypeFromString).collect(Collectors.toSet());
+        Set<PlaceType> placeTypes = placeCreateDTO.placeTypes().stream().map(this::findOrCreatePlaceType).collect(Collectors.toSet());
         place.setPlaceId(placeCreateDTO.placeId());
         place.setName(placeCreateDTO.name());
         place.setPlaceTypes(placeTypes);
@@ -59,9 +62,11 @@ public class PlaceService {
                 place.getOpeningHours());
     }
 
-    private PlaceType createPlaceTypeFromString(String placeType) {
-        PlaceType newPlaceType = new PlaceType();
-        newPlaceType.setPlaceType(placeType);
-        return newPlaceType;
+    private PlaceType findOrCreatePlaceType(String placeType) {
+        return this.placeTypeRepository.findByPlaceType(placeType).orElseGet(() -> {
+                PlaceType newPlaceType = new PlaceType();
+                newPlaceType.setPlaceType(placeType);
+                return this.placeTypeRepository.save(newPlaceType);
+        });
     }
 }
