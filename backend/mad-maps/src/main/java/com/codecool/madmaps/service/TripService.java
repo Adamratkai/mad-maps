@@ -27,7 +27,7 @@ public class TripService {
 
     public TripDTO createTrip(TripCreateDTO tripCreateDTO) {
         Trip newTrip = new Trip();
-        newTrip.setId(UUID.randomUUID());
+        newTrip.setTripId(UUID.randomUUID());
         newTrip.setStartDate(tripCreateDTO.startDate());
         newTrip.setEndDate(tripCreateDTO.endDate());
         this.tripRepository.save(newTrip);
