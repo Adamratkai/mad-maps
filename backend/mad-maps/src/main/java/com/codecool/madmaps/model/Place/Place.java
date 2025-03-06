@@ -1,10 +1,15 @@
 package com.codecool.madmaps.model.Place;
 
-import com.codecool.madmaps.model.OpeningHours.OpeningHours;
 import com.codecool.madmaps.model.PlaceType.PlaceType;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,9 +42,9 @@ public class Place {
     private int priceLevel;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "opening_hours_id")
-    private OpeningHours openingHours;
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private List<String> openingHours;
 
     @Transient
     public double calculateScore() {
