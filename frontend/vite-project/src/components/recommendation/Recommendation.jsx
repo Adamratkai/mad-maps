@@ -42,9 +42,9 @@ function Recommendation({location, onChange}) {
       <>
       {recommendations && (
         <div className="recommendation-container">
-            <div className="recommendation-list">
+            <div className="join">
               {recommendations.map((recommendation) => (
-                  <RecommendedPlace key={recommendation.place_id} name={recommendation.name} price={recommendation.price_level} rating={recommendation.rating} handlePlaceClick={() => handlePlaceClick(recommendation.place_id)}/>
+                  <RecommendedPlace key={recommendation.place_id} name={recommendation.name} price={recommendation.price_level} rating={recommendation.rating} handlePlaceClick={() => handlePlaceClick(recommendation.place_id)} />
               ))}
             </div>
         </div>
