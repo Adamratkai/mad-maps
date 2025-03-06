@@ -19,7 +19,7 @@ function Trip() {
                 <TripMenu/>
             </div>
             <div className="Recommendation">
-                <Recommendation location={location}/>
+                {location && <Recommendation location={location}/>}
             </div>
         </div>
     )
