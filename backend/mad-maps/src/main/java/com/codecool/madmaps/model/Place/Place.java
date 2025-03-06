@@ -1,5 +1,7 @@
 package com.codecool.madmaps.model.Place;
 
+import com.codecool.madmaps.model.OpeningHours.OpeningHours;
+import com.codecool.madmaps.model.PlaceType.PlaceType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import lombok.Setter;
 
 import java.net.http.WebSocket;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "places")
@@ -27,10 +30,16 @@ public class Place {
     @Column(nullable = false)
     private String name;
 
-    private List<PlaceType> placeTypes;
+    @ManyToMany
+    @JoinTable(name = "place_place_type", joinColumns = @JoinColumn(name = "place_id"), inverseJoinColumns = @JoinColumn(name = "place_type_id"))
+    private Set<PlaceType> placeTypes;
+
     private double rating;
     private int priceLevel;
-    private List<OpeningHours> openingHours;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "opening_hours_id")
+    private OpeningHours openingHours;
 
     @Transient
     public double calculateScore() {

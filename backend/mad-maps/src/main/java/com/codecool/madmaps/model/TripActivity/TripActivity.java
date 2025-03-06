@@ -1,6 +1,7 @@
 package com.codecool.madmaps.model.TripActivity;
 
 import com.codecool.madmaps.model.Place.Place;
+import com.codecool.madmaps.model.Trip.Trip;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,4 +27,8 @@ public class TripActivity {
     private Place place;
 
     private LocalDateTime visitTime;
+
+    @ManyToOne
+    @JoinColumn(name = "trip_id", nullable = false)
+    private Trip trip;
 }
