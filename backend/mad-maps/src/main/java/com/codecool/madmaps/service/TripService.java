@@ -1,8 +1,8 @@
 package com.codecool.madmaps.service;
 
 
-import com.codecool.madmaps.DTO.Trip.TripCreateDTO;
-import com.codecool.madmaps.DTO.Trip.TripDTO;
+import com.codecool.madmaps.DTO.Place.PlaceDTO;
+import com.codecool.madmaps.DTO.Trip.*;
 import com.codecool.madmaps.model.Place.Place;
 import com.codecool.madmaps.model.Trip.Trip;
 import com.codecool.madmaps.model.TripActivity.TripActivity;
@@ -11,6 +11,7 @@ import com.codecool.madmaps.repository.TripRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -25,21 +26,21 @@ public class TripService {
         this.placeRepository = placeRepository;
     }
 
-    public TripDTO createTrip(TripCreateDTO tripCreateDTO) {
+    public UUID createTrip(TripCreateDTO tripCreateDTO) {
         Trip newTrip = new Trip();
-        newTrip.setId(UUID.randomUUID());
+        newTrip.setTripId(UUID.randomUUID());
+        newTrip.setName(tripCreateDTO.name());
         newTrip.setStartDate(tripCreateDTO.startDate());
         newTrip.setEndDate(tripCreateDTO.endDate());
-        this.tripRepository.save(newTrip);
-        return new TripDTO(newTrip.getTripId(), newTrip.getStartDate(), newTrip.getEndDate());
+        return this.tripRepository.save(newTrip).getTripId();
     }
 
-    private void addTripActivity(CreateTripActivityDTO createTripActivityDTO) {
+    private void addTripActivity(TripActivityCreateDTO tripActivityCreateDTO) {
         TripActivity newTripActivity = new TripActivity();
-        newTripActivity.setVisitTime(createTripActivityDTO.visitTime());
-        Trip trip = this.tripRepository.findByTripId(createTripActivityDTO.tripId()).findFirst().orElseThrow(() -> new NoSuchTripException());
+        newTripActivity.setVisitTime(tripActivityCreateDTO.visitTime());
+        Trip trip = this.tripRepository.findByTripId(tripActivityCreateDTO.tripId()).orElseThrow(NoSuchElementException::new);
         newTripActivity.setTrip(trip);
-        Place place = this.placeRepository.findByPlaceId(createTripActivityDTO.placeId()).findFirst().orElseThrow(() -> new NoSuchPlaceException());
+        Place place = this.placeRepository.findByPlaceId(tripActivityCreateDTO.placeId()).orElseThrow(NoSuchElementException::new);
         newTripActivity.setPlace(place);
     }
 
@@ -49,15 +50,23 @@ public class TripService {
     }
 
     public TripDetailsDTO getTripById(UUID tripId) {
-       Trip trip = this.tripRepository.findByTripId(tripId).findFirst().orElseThrow(() -> new NoSuchTripException());
+       Trip trip = this.tripRepository.findByTripId(tripId).orElseThrow(NoSuchElementException::new);
        return convertTripToTripDetailsDTO(trip);
 
     }
 
     private TripDTO convertTripToTripDTO(Trip trip) {
-        return new TripDTO(trip.getTripId(), trip.getStartDate(), trip.getEndDate());
+        return new TripDTO(trip.getTripId(), trip.getName(), trip.getStartDate(), trip.getEndDate());
     }
     private TripDetailsDTO convertTripToTripDetailsDTO(Trip trip) {
-        return new TripDTO(trip.getTripId(), trip.getStartDate(), trip.getEndDate(), trip.getTripActivities());
+        List<TripActivity> tripActivities = trip.getTripActivities();
+        List<TripActivityDTO> tripActivityDTOS = tripActivities.stream().map(this::convertTripActivityToTripActivityDTO).collect(Collectors.toList());
+        return new TripDetailsDTO(trip.getTripId(), trip.getName(), trip.getStartDate(), trip.getEndDate(), tripActivityDTOS);
+    }
+
+    private TripActivityDTO convertTripActivityToTripActivityDTO(TripActivity tripActivity) {
+        Place place = tripActivity.getPlace();
+        PlaceDTO placeDTO = new PlaceDTO(place.getPlaceId(), place.getName(), place.getRating(), place.getPriceLevel(), place.getOpeningHours().getOpeningHours());
+        return new TripActivityDTO(placeDTO, tripActivity.getVisitTime());
     }
     }
