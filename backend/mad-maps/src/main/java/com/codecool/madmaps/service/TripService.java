@@ -34,12 +34,12 @@ public class TripService {
         return this.tripRepository.save(newTrip).getTripId();
     }
 
-    private void addTripActivity(CreateTripActivityDTO createTripActivityDTO) {
+    private void addTripActivity(TripActivityCreateDTO tripActivityCreateDTO) {
         TripActivity newTripActivity = new TripActivity();
-        newTripActivity.setVisitTime(createTripActivityDTO.visitTime());
-        Trip trip = this.tripRepository.findByTripId(createTripActivityDTO.tripId()).findFirst().orElseThrow(() -> new NoSuchTripException());
+        newTripActivity.setVisitTime(tripActivityCreateDTO.visitTime());
+        Trip trip = this.tripRepository.findByTripId(tripActivityCreateDTO.tripId()).findFirst().orElseThrow(() -> new NoSuchTripException());
         newTripActivity.setTrip(trip);
-        Place place = this.placeRepository.findByPlaceId(createTripActivityDTO.placeId()).findFirst().orElseThrow(() -> new NoSuchPlaceException());
+        Place place = this.placeRepository.findByPlaceId(tripActivityCreateDTO.placeId()).findFirst().orElseThrow(() -> new NoSuchPlaceException());
         newTripActivity.setPlace(place);
     }
 
