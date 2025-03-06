@@ -26,7 +26,7 @@ public class OpeningHours {
 
     @Type(JsonType.class)
     @Column(columnDefinition = "jsonb")
-    private List<String> openingHours;
+    private List<String> openingHoursPerWeekDays;
 
     @OneToOne(mappedBy = "openingHours")
     private Place place;

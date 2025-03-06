@@ -66,7 +66,7 @@ public class TripService {
 
     private TripActivityDTO convertTripActivityToTripActivityDTO(TripActivity tripActivity) {
         Place place = tripActivity.getPlace();
-        PlaceDTO placeDTO = new PlaceDTO(place.getPlaceId(), place.getName(), place.getRating(), place.getPriceLevel(), place.getOpeningHours().getOpeningHours());
+        PlaceDTO placeDTO = new PlaceDTO(place.getPlaceId(), place.getName(), place.getRating(), place.getPriceLevel(), place.getOpeningHours().getOpeningHoursPerWeekDays());
         return new TripActivityDTO(placeDTO, tripActivity.getVisitTime());
     }
     }
