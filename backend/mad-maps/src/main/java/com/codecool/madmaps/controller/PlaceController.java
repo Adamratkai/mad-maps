@@ -25,7 +25,7 @@ public class PlaceController {
     }
 
     @GetMapping("/{placeId}")
-    public PlaceDTO getPlace(@PathVariable UUID placeId) {
+    public PlaceDTO getPlace(@PathVariable String placeId) {
         return placeService.getPlaceById(placeId);
     }
 
