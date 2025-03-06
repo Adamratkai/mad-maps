@@ -4,11 +4,11 @@ package com.codecool.madmaps.service;
 import com.codecool.madmaps.DTO.Place.PlaceCreateDTO;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
 import com.codecool.madmaps.model.Place.Place;
+import com.codecool.madmaps.model.PlaceType.PlaceType;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PlaceService {
@@ -25,10 +25,9 @@ public class PlaceService {
             placeDTOs.add(new PlaceDTO(
                     place.getPlaceId(),
                     place.getName(),
-                    place.getPlaceTypes(),
                     place.getRating(),
                     place.getPriceLevel(),
-                    place.getOpeningHours()));
+                    place.getOpeningHours().getOpeningHours()));
         }
         return placeDTOs;
     }
@@ -38,20 +37,23 @@ public class PlaceService {
         return new PlaceDTO(
                 place.getPlaceId(),
                 place.getName(),
-                place.getPlaceTypes(),
                 place.getRating(),
                 place.getPriceLevel(),
-                place.getOpeningHours());
+                place.getOpeningHours().getOpeningHours());
     }
 
     public PlaceDTO createPlace(PlaceCreateDTO placeCreateDTO) {
-        Place place = new Place(placeCreateDTO.placeId(), placeCreateDTO.name(), placeCreateDTO.placeTypes(), placeCreateDTO.rating(), placeCreateDTO.priceLevel(), placeCreateDTO.openingHours());
+        Set<PlaceType> placeTypes = placeCreateDTO.placeTypes().stream().map(this::createPlaceTypeFromString).collect(Collectors.toSet());
+        Place place = new Place(placeCreateDTO.placeId(), placeCreateDTO.name(), placeTypes, placeCreateDTO.rating(), placeCreateDTO.priceLevel(), placeCreateDTO.openingHours());
         this.places.add(place);
         return new PlaceDTO(place.getPlaceId(),
                 place.getName(),
-                place.getPlaceTypes(),
                 place.getRating(),
                 place.getPriceLevel(),
-                place.getOpeningHours());
+                place.getOpeningHours().getOpeningHours());
+    }
+
+    private PlaceType createPlaceTypeFromString(String placeType) {
+        return new PlaceType(placeType);
     }
 }
