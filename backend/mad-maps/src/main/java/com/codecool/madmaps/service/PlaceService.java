@@ -3,11 +3,15 @@ package com.codecool.madmaps.service;
 
 import com.codecool.madmaps.DTO.Place.PlaceCreateDTO;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
+import com.codecool.madmaps.model.OpeningHours.OpeningHours;
 import com.codecool.madmaps.model.Place.Place;
 import com.codecool.madmaps.model.PlaceType.PlaceType;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,8 +47,16 @@ public class PlaceService {
     }
 
     public PlaceDTO createPlace(PlaceCreateDTO placeCreateDTO) {
+        Place place = new Place();
         Set<PlaceType> placeTypes = placeCreateDTO.placeTypes().stream().map(this::createPlaceTypeFromString).collect(Collectors.toSet());
-        Place place = new Place(placeCreateDTO.placeId(), placeCreateDTO.name(), placeTypes, placeCreateDTO.rating(), placeCreateDTO.priceLevel(), placeCreateDTO.openingHours());
+        OpeningHours openingHours = new OpeningHours();
+        openingHours.setOpeningHours(placeCreateDTO.openingHours());
+        place.setPlaceId(placeCreateDTO.placeId());
+        place.setName(placeCreateDTO.name());
+        place.setPlaceTypes(placeTypes);
+        place.setRating(placeCreateDTO.rating());
+        place.setPriceLevel(placeCreateDTO.priceLevel());
+        place.setOpeningHours(openingHours);
         this.places.add(place);
         return new PlaceDTO(place.getPlaceId(),
                 place.getName(),
