@@ -39,9 +39,9 @@ public class TripService {
     private void addTripActivity(TripActivityCreateDTO tripActivityCreateDTO) {
         TripActivity newTripActivity = new TripActivity();
         newTripActivity.setVisitTime(tripActivityCreateDTO.visitTime());
-        Trip trip = this.tripRepository.findByTripId(tripActivityCreateDTO.tripId()).findFirst().orElseThrow(() -> new NoSuchTripException());
+        Trip trip = this.tripRepository.findByTripId(tripActivityCreateDTO.tripId()).orElseThrow(() -> new NoSuchTripException());
         newTripActivity.setTrip(trip);
-        Place place = this.placeRepository.findByPlaceId(tripActivityCreateDTO.placeId()).findFirst().orElseThrow(() -> new NoSuchPlaceException());
+        Place place = this.placeRepository.findByPlaceId(tripActivityCreateDTO.placeId()).orElseThrow(() -> new NoSuchPlaceException());
         newTripActivity.setPlace(place);
     }
 
@@ -51,7 +51,7 @@ public class TripService {
     }
 
     public TripDetailsDTO getTripById(UUID tripId) {
-       Trip trip = this.tripRepository.findByTripId(tripId).findFirst().orElseThrow(() -> new NoSuchTripException());
+       Trip trip = this.tripRepository.findByTripId(tripId).orElseThrow(() -> new NoSuchTripException());
        return convertTripToTripDetailsDTO(trip);
 
     }
