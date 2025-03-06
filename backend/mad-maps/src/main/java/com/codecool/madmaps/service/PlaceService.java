@@ -3,7 +3,6 @@ package com.codecool.madmaps.service;
 
 import com.codecool.madmaps.DTO.Place.PlaceCreateDTO;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
-import com.codecool.madmaps.model.OpeningHours.OpeningHours;
 import com.codecool.madmaps.model.Place.Place;
 import com.codecool.madmaps.model.PlaceType.PlaceType;
 import com.codecool.madmaps.repository.PlaceRepository;
@@ -30,7 +29,7 @@ public class PlaceService {
                 place.getName(),
                 place.getRating(),
                 place.getPriceLevel(),
-                place.getOpeningHours().getOpeningHoursPerWeekDays())).collect(Collectors.toList());
+                place.getOpeningHours())).collect(Collectors.toList());
     }
 
     public PlaceDTO getPlaceById(String placeId) {
@@ -40,26 +39,24 @@ public class PlaceService {
                 place.getName(),
                 place.getRating(),
                 place.getPriceLevel(),
-                place.getOpeningHours().getOpeningHoursPerWeekDays());
+                place.getOpeningHours());
     }
 
     public PlaceDTO createPlace(PlaceCreateDTO placeCreateDTO) {
         Place place = new Place();
         Set<PlaceType> placeTypes = placeCreateDTO.placeTypes().stream().map(this::createPlaceTypeFromString).collect(Collectors.toSet());
-        OpeningHours openingHours = new OpeningHours();
-        openingHours.setOpeningHoursPerWeekDays(placeCreateDTO.openingHours());
         place.setPlaceId(placeCreateDTO.placeId());
         place.setName(placeCreateDTO.name());
         place.setPlaceTypes(placeTypes);
         place.setRating(placeCreateDTO.rating());
         place.setPriceLevel(placeCreateDTO.priceLevel());
-        place.setOpeningHours(openingHours);
+        place.setOpeningHours(placeCreateDTO.openingHours());
         this.placeRepository.save(place);
         return new PlaceDTO(place.getPlaceId(),
                 place.getName(),
                 place.getRating(),
                 place.getPriceLevel(),
-                place.getOpeningHours().getOpeningHoursPerWeekDays());
+                place.getOpeningHours());
     }
 
     private PlaceType createPlaceTypeFromString(String placeType) {
