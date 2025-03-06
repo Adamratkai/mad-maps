@@ -45,7 +45,13 @@ public class PlaceService {
     }
 
     public PlaceDTO createPlace(PlaceCreateDTO placeCreateDTO) {
-        Place place = new Place(placeCreateDTO.placeId(), placeCreateDTO.name(), placeCreateDTO.placeTypes(), placeCreateDTO.rating(), placeCreateDTO.priceLevel(), placeCreateDTO.openingHours());
+        Place place = new Place();
+        place.setPlaceId(placeCreateDTO.placeId());
+        place.setName(placeCreateDTO.name());
+        place.setPlaceTypes(placeCreateDTO.placeTypes());
+        place.setRating(placeCreateDTO.rating());
+        place.setPriceLevel(placeCreateDTO.priceLevel());
+        place.setOpeningHours(placeCreateDTO.openingHours());
         this.places.add(place);
         return new PlaceDTO(place.getPlaceId(),
                 place.getName(),
