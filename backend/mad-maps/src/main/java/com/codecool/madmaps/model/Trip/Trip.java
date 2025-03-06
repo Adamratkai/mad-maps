@@ -37,7 +37,7 @@ public class Trip {
     @Column(nullable = false)
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TripActivity> tripActivities;
 
     @ManyToOne
