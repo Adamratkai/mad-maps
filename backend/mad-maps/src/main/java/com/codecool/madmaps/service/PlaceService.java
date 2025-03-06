@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 @Service
 public class PlaceService {
@@ -24,34 +23,35 @@ public class PlaceService {
         List<PlaceDTO> placeDTOs = new ArrayList<>();
         for (Place place : places) {
             placeDTOs.add(new PlaceDTO(
-                    place.publicId(),
-                    place.name(),
-                    place.rating(),
-                    place.price(),
-                    place.img(),
-                    place.tripId(),
-                    place.time()
-            ));
+                    place.getPlaceId(),
+                    place.getName(),
+                    place.getPlaceTypes(),
+                    place.getRating(),
+                    place.getPriceLevel(),
+                    place.getOpeningHours()));
         }
         return placeDTOs;
     }
 
-    public PlaceDTO getPlaceById(UUID placeId) {
-        Place place = places.stream().filter(pl -> pl.publicId().equals(placeId)).findFirst().orElseThrow(NoSuchElementException::new);
+    public PlaceDTO getPlaceById(String placeId) {
+        Place place = places.stream().filter(pl -> pl.getPlaceId().equals(placeId)).findFirst().orElseThrow(NoSuchElementException::new);
         return new PlaceDTO(
-                place.publicId(),
-                place.name(),
-                place.rating(),
-                place.price(),
-                place.img(),
-                place.tripId(),
-                place.time()
-        );
+                place.getPlaceId(),
+                place.getName(),
+                place.getPlaceTypes(),
+                place.getRating(),
+                place.getPriceLevel(),
+                place.getOpeningHours());
     }
 
     public PlaceDTO createPlace(PlaceCreateDTO placeCreateDTO) {
-        Place place = new Place(UUID.randomUUID(), placeCreateDTO.name(), placeCreateDTO.rating(), placeCreateDTO.price(), placeCreateDTO.img(), placeCreateDTO.tripId(), placeCreateDTO.time());
+        Place place = new Place(placeCreateDTO.placeId(), placeCreateDTO.name(), placeCreateDTO.placeTypes(), placeCreateDTO.rating(), placeCreateDTO.priceLevel(), placeCreateDTO.openingHours());
         this.places.add(place);
-        return new PlaceDTO(place.publicId(), place.name(), place.rating(), place.price(), place.img(), place.tripId(), place.time());
+        return new PlaceDTO(place.getPlaceId(),
+                place.getName(),
+                place.getPlaceTypes(),
+                place.getRating(),
+                place.getPriceLevel(),
+                place.getOpeningHours());
     }
 }
