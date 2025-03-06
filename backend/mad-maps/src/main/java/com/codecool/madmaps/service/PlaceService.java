@@ -6,9 +6,9 @@ import com.codecool.madmaps.DTO.Place.PlaceDTO;
 import com.codecool.madmaps.model.OpeningHours.OpeningHours;
 import com.codecool.madmaps.model.Place.Place;
 import com.codecool.madmaps.model.PlaceType.PlaceType;
+import com.codecool.madmaps.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -17,27 +17,24 @@ import java.util.stream.Collectors;
 @Service
 public class PlaceService {
 
-    List<Place> places;
+    private final PlaceRepository placeRepository;
 
-    public PlaceService(List<Place> places) {
-        this.places = places;
+    public PlaceService(PlaceRepository placeRepository) {
+        this.placeRepository = placeRepository;
     }
 
     public List<PlaceDTO> getAllPlaces() {
-        List<PlaceDTO> placeDTOs = new ArrayList<>();
-        for (Place place : places) {
-            placeDTOs.add(new PlaceDTO(
-                    place.getPlaceId(),
-                    place.getName(),
-                    place.getRating(),
-                    place.getPriceLevel(),
-                    place.getOpeningHours().getOpeningHoursPerWeekDays()));
-        }
-        return placeDTOs;
+        List<Place> places = this.placeRepository.findAll();
+        return places.stream().map(place -> new PlaceDTO(
+                place.getPlaceId(),
+                place.getName(),
+                place.getRating(),
+                place.getPriceLevel(),
+                place.getOpeningHours().getOpeningHoursPerWeekDays())).collect(Collectors.toList());
     }
 
     public PlaceDTO getPlaceById(String placeId) {
-        Place place = places.stream().filter(pl -> pl.getPlaceId().equals(placeId)).findFirst().orElseThrow(NoSuchElementException::new);
+       Place place = this.placeRepository.findByPlaceId(placeId).orElseThrow(NoSuchElementException::new);
         return new PlaceDTO(
                 place.getPlaceId(),
                 place.getName(),
@@ -57,7 +54,7 @@ public class PlaceService {
         place.setRating(placeCreateDTO.rating());
         place.setPriceLevel(placeCreateDTO.priceLevel());
         place.setOpeningHours(openingHours);
-        this.places.add(place);
+        this.placeRepository.save(place);
         return new PlaceDTO(place.getPlaceId(),
                 place.getName(),
                 place.getRating(),
