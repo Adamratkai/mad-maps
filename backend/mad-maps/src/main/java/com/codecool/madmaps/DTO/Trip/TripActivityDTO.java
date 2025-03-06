@@ -1,4 +1,8 @@
 package com.codecool.madmaps.DTO.Trip;
 
-public record TripActivityDTO() {
+import com.codecool.madmaps.DTO.Place.PlaceDTO;
+
+import java.time.LocalDateTime;
+
+public record TripActivityDTO(PlaceDTO placeDTO, LocalDateTime visitTime) {
 }
