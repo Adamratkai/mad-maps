@@ -1,94 +1,72 @@
 package com.codecool.madmaps.service;
 
 
-import com.codecool.madmaps.DTO.Trip.TripCreateDTO;
-import com.codecool.madmaps.DTO.Trip.TripDTO;
-import com.codecool.madmaps.DTO.Trip.TripUpdateDTO;
-import com.codecool.madmaps.DTO.TripDay.TripDayCreateDTO;
-import com.codecool.madmaps.DTO.TripDay.TripDayDTO;
+import com.codecool.madmaps.DTO.Place.PlaceDTO;
+import com.codecool.madmaps.DTO.Trip.*;
+import com.codecool.madmaps.model.Place.Place;
+import com.codecool.madmaps.model.Trip.Trip;
+import com.codecool.madmaps.model.TripActivity.TripActivity;
+import com.codecool.madmaps.repository.PlaceRepository;
+import com.codecool.madmaps.repository.TripRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.Period;
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TripService {
 
-    private Set<Trip> trips;
-    private TripDayService tripDayService;
+    private final TripRepository tripRepository;
+    private final PlaceRepository placeRepository;
 
-    public TripService(TripDayService tripDayService) {
-        trips = new HashSet<>();
-        this.tripDayService = tripDayService;
+    public TripService(TripRepository tripRepository, PlaceRepository placeRepository) {
+        this.tripRepository = tripRepository;
+        this.placeRepository = placeRepository;
     }
 
-    public TripDTO createTrip(TripCreateDTO tripCreateDTO) {
-        Trip newTrip = new Trip(
-                UUID.randomUUID(),
-                tripCreateDTO.name().isBlank() ? tripCreateDTO.startDate().toString() + " - " + tripCreateDTO.endDate().toString() : tripCreateDTO.name(),
-                new ArrayList<>(),
-                tripCreateDTO.startDate(),
-                tripCreateDTO.endDate()
-
-        );
-        addTripDays(tripCreateDTO, newTrip);
-        trips.add(newTrip);
-        return new TripDTO(
-                newTrip.publicId(),
-                newTrip.name(),
-                newTrip.tripDayIds(),
-                newTrip.startDate(),
-                newTrip.endDate()
-        );
+    public UUID createTrip(TripCreateDTO tripCreateDTO) {
+        Trip newTrip = new Trip();
+        newTrip.setTripId(UUID.randomUUID());
+        newTrip.setName(tripCreateDTO.name());
+        newTrip.setStartDate(tripCreateDTO.startDate());
+        newTrip.setEndDate(tripCreateDTO.endDate());
+        return this.tripRepository.save(newTrip).getTripId();
     }
 
-    private void addTripDays(TripCreateDTO tripCreateDTO, Trip newTrip) {
-        Period period = Period.between(tripCreateDTO.startDate(), tripCreateDTO.endDate());
-        for (int i = 0; i <= period.getDays(); i++) {
-            TripDayDTO tripDayDTO = tripDayService.createTripDay(new TripDayCreateDTO(
-                            tripCreateDTO.startDate().plusDays(i),
-                            new ArrayList<>()
-                    )
-            );
-            newTrip.tripDayIds().add(tripDayDTO.publicId());
-        }
+    private void addTripActivity(TripActivityCreateDTO tripActivityCreateDTO) {
+        TripActivity newTripActivity = new TripActivity();
+        newTripActivity.setVisitTime(tripActivityCreateDTO.visitTime());
+        Trip trip = this.tripRepository.findByTripId(tripActivityCreateDTO.tripId()).orElseThrow(NoSuchElementException::new);
+        newTripActivity.setTrip(trip);
+        Place place = this.placeRepository.findByPlaceId(tripActivityCreateDTO.placeId()).orElseThrow(NoSuchElementException::new);
+        newTripActivity.setPlace(place);
     }
 
     public List<TripDTO> getTrips() {
-        List<TripDTO> tripDTOList = new ArrayList<>();
-        for (Trip trip : trips) {
-            tripDTOList.add(new TripDTO(
-                    trip.publicId(),
-                    trip.name(),
-                    trip.tripDayIds(),
-                    trip.startDate(),
-                    trip.endDate()
-
-            ));
-        }
-        return tripDTOList;
+        List<Trip> trips = this.tripRepository.findAll();
+        return trips.stream().map(this::convertTripToTripDTO).collect(Collectors.toList());
     }
 
-    public TripDTO getTripById(UUID tripId) {
-        Trip trip = trips.stream().filter(t -> t.publicId().equals(tripId)).findFirst().orElseThrow(NoSuchElementException::new);
-        return new TripDTO(
-                trip.publicId(),
-                trip.name(),
-                trip.tripDayIds(),
-                trip.startDate(),
-                trip.endDate()
-        );
+    public TripDetailsDTO getTripById(UUID tripId) {
+       Trip trip = this.tripRepository.findByTripId(tripId).orElseThrow(NoSuchElementException::new);
+       return convertTripToTripDetailsDTO(trip);
+
     }
 
-    public boolean updateTrip(UUID tripId, TripUpdateDTO tripUpdateDTO) {
-        Trip trip = trips.stream().filter(t -> t.publicId().equals(tripId)).findFirst().orElseThrow(NoSuchElementException::new);
-        trips.remove(trip);
-        return trips.add(new Trip(
-                tripId,
-                tripUpdateDTO.name(),
-                tripUpdateDTO.tripDays().stream().map(TripDayDTO::publicId).toList(),
-                tripUpdateDTO.startDate(),
-                tripUpdateDTO.endDate()
-        ));
+    private TripDTO convertTripToTripDTO(Trip trip) {
+        return new TripDTO(trip.getTripId(), trip.getName(), trip.getStartDate(), trip.getEndDate());
     }
-}
+    private TripDetailsDTO convertTripToTripDetailsDTO(Trip trip) {
+        List<TripActivity> tripActivities = trip.getTripActivities();
+        List<TripActivityDTO> tripActivityDTOS = tripActivities.stream().map(this::convertTripActivityToTripActivityDTO).collect(Collectors.toList());
+        return new TripDetailsDTO(trip.getTripId(), trip.getName(), trip.getStartDate(), trip.getEndDate(), tripActivityDTOS);
+    }
+
+    private TripActivityDTO convertTripActivityToTripActivityDTO(TripActivity tripActivity) {
+        Place place = tripActivity.getPlace();
+        PlaceDTO placeDTO = new PlaceDTO(place.getPlaceId(), place.getName(), place.getRating(), place.getPriceLevel(), place.getOpeningHours().getOpeningHoursPerWeekDays());
+        return new TripActivityDTO(placeDTO, tripActivity.getVisitTime());
+    }
+    }

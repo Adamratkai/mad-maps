@@ -3,6 +3,7 @@ package com.codecool.madmaps.controller;
 
 import com.codecool.madmaps.DTO.Trip.TripCreateDTO;
 import com.codecool.madmaps.DTO.Trip.TripDTO;
+import com.codecool.madmaps.DTO.Trip.TripDetailsDTO;
 import com.codecool.madmaps.DTO.Trip.TripUpdateDTO;
 import com.codecool.madmaps.service.TripService;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class TripController {
     }
 
     @PostMapping("/")
-    public TripDTO createTrip(@RequestBody TripCreateDTO tripCreateDTO) {
+    public UUID createTrip(@RequestBody TripCreateDTO tripCreateDTO) {
         return tripService.createTrip(tripCreateDTO);
     }
 
@@ -31,12 +32,12 @@ public class TripController {
     }
 
     @GetMapping("/{tripId}")
-    public TripDTO getTripById(@PathVariable UUID tripId) {
+    public TripDetailsDTO getTripById(@PathVariable UUID tripId) {
         return tripService.getTripById(tripId);
     }
 
     @PutMapping("/{tripId}")
     public boolean updateTrip(@PathVariable UUID tripId, @RequestBody TripUpdateDTO tripUpdateDTO) {
-        return tripService.updateTrip(tripId, tripUpdateDTO);
+        return false;
     }
 }
