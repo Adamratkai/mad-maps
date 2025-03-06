@@ -26,6 +26,9 @@ public class Trip {
     private Long id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private UUID tripId;
 
     @Column(nullable = false)
