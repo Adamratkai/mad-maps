@@ -1,8 +1,10 @@
 package com.codecool.madmaps.service;
 
 
+import com.codecool.madmaps.DTO.Trip.TripActivityCreateDTO;
 import com.codecool.madmaps.DTO.Trip.TripCreateDTO;
 import com.codecool.madmaps.DTO.Trip.TripDTO;
+import com.codecool.madmaps.DTO.Trip.TripDetailsDTO;
 import com.codecool.madmaps.model.Place.Place;
 import com.codecool.madmaps.model.Trip.Trip;
 import com.codecool.madmaps.model.TripActivity.TripActivity;
@@ -58,6 +60,6 @@ public class TripService {
         return new TripDTO(trip.getTripId(), trip.getName(), trip.getStartDate(), trip.getEndDate());
     }
     private TripDetailsDTO convertTripToTripDetailsDTO(Trip trip) {
-        return new TripDTO(trip.getTripId(), trip.getStartDate(), trip.getEndDate(), trip.getTripActivities());
+        return new TripDetailsDTO(trip.getTripId(), trip.getName(), trip.getStartDate(), trip.getEndDate());
     }
     }
