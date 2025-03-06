@@ -31,7 +31,7 @@ public class PlaceService {
                     place.getName(),
                     place.getRating(),
                     place.getPriceLevel(),
-                    place.getOpeningHours().getOpeningHours()));
+                    place.getOpeningHours().getOpeningHoursPerWeekDays()));
         }
         return placeDTOs;
     }
@@ -43,14 +43,14 @@ public class PlaceService {
                 place.getName(),
                 place.getRating(),
                 place.getPriceLevel(),
-                place.getOpeningHours().getOpeningHours());
+                place.getOpeningHours().getOpeningHoursPerWeekDays());
     }
 
     public PlaceDTO createPlace(PlaceCreateDTO placeCreateDTO) {
         Place place = new Place();
         Set<PlaceType> placeTypes = placeCreateDTO.placeTypes().stream().map(this::createPlaceTypeFromString).collect(Collectors.toSet());
         OpeningHours openingHours = new OpeningHours();
-        openingHours.setOpeningHours(placeCreateDTO.openingHours());
+        openingHours.setOpeningHoursPerWeekDays(placeCreateDTO.openingHours());
         place.setPlaceId(placeCreateDTO.placeId());
         place.setName(placeCreateDTO.name());
         place.setPlaceTypes(placeTypes);
@@ -62,7 +62,7 @@ public class PlaceService {
                 place.getName(),
                 place.getRating(),
                 place.getPriceLevel(),
-                place.getOpeningHours().getOpeningHours());
+                place.getOpeningHours().getOpeningHoursPerWeekDays());
     }
 
     private PlaceType createPlaceTypeFromString(String placeType) {
