@@ -25,13 +25,13 @@ public class TripService {
         this.placeRepository = placeRepository;
     }
 
-    public TripDTO createTrip(TripCreateDTO tripCreateDTO) {
+    public UUID createTrip(TripCreateDTO tripCreateDTO) {
         Trip newTrip = new Trip();
         newTrip.setTripId(UUID.randomUUID());
+        newTrip.setName(tripCreateDTO.name());
         newTrip.setStartDate(tripCreateDTO.startDate());
         newTrip.setEndDate(tripCreateDTO.endDate());
-        this.tripRepository.save(newTrip);
-        return new TripDTO(newTrip.getTripId(), newTrip.getStartDate(), newTrip.getEndDate());
+        return this.tripRepository.save(newTrip).getTripId();
     }
 
     private void addTripActivity(CreateTripActivityDTO createTripActivityDTO) {
@@ -55,7 +55,7 @@ public class TripService {
     }
 
     private TripDTO convertTripToTripDTO(Trip trip) {
-        return new TripDTO(trip.getTripId(), trip.getStartDate(), trip.getEndDate());
+        return new TripDTO(trip.getTripId(), trip.getName(), trip.getStartDate(), trip.getEndDate());
     }
     private TripDetailsDTO convertTripToTripDetailsDTO(Trip trip) {
         return new TripDTO(trip.getTripId(), trip.getStartDate(), trip.getEndDate(), trip.getTripActivities());
