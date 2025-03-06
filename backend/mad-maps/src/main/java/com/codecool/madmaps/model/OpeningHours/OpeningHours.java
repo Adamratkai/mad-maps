@@ -1,11 +1,15 @@
 package com.codecool.madmaps.model.OpeningHours;
 
 import com.codecool.madmaps.model.Place.Place;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+
+import java.util.List;
 
 
 @Entity
@@ -20,13 +24,9 @@ public class OpeningHours {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String monday;
-    private String tuesday;
-    private String wednesday;
-    private String thursday;
-    private String friday;
-    private String saturday;
-    private String sunday;
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private List<String> openingHours;
 
     @OneToOne(mappedBy = "openingHours")
     private Place place;
