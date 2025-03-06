@@ -66,6 +66,8 @@ public class PlaceService {
     }
 
     private PlaceType createPlaceTypeFromString(String placeType) {
-        return new PlaceType(placeType);
+        PlaceType newPlaceType = new PlaceType();
+        newPlaceType.setPlaceType(placeType);
+        return newPlaceType;
     }
 }
