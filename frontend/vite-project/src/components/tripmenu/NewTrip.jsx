@@ -29,7 +29,7 @@ function NewTrip({trips, setTrips}) {
         }
     };
   return (
-      <form onSubmit={addTrip}>
+      <form className="flex flex-col" onSubmit={addTrip}>
           <input
               type="text"
               name="name"
