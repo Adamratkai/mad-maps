@@ -11,17 +11,20 @@ function Trip() {
     }
 
     return (
-        <div className="App">
-            <div className="GoogleMap">
-                <GoogleMapComponent handleLocationChange={handleLocationChange}/>
+        <div className="grid grid-cols-2 grid-rows-3 gap-4 p-4 h-screen">
+            <div className="col-span-1 row-span-2 flex items-center justify-center">
+                <GoogleMapComponent onLocationChange={handleLocationChange}/>
             </div>
-            <div className="TripMenu">
+            <div className="col-span-1 row-span-2 flex items-center justify-center">
                 <TripMenu/>
             </div>
-            <div className="Recommendation">
-                {location && <Recommendation location={location}/>}
-            </div>
+            {location &&
+                <div className="col-span-2  flex items-center justify-center">
+                    <Recommendation location={location}/>
+                </div>
+            }
         </div>
+
     )
 }
 

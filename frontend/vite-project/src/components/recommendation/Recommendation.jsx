@@ -42,7 +42,7 @@ function Recommendation({location, onChange}) {
       <>
       {recommendations && (
         <div className="recommendation-container">
-            <div className="join">
+            <div className="flex gap-5 ">
               {recommendations.map((recommendation) => (
                   <RecommendedPlace key={recommendation.place_id} name={recommendation.name} price={recommendation.price_level} rating={recommendation.rating} handlePlaceClick={() => handlePlaceClick(recommendation.place_id)} />
               ))}

@@ -18,8 +18,8 @@ export default function TripMenu() {
         }
     };
     return (
-        <>
-            <h2>Trip Menu</h2>
+        <div className="card flex flex-col bg-base-200  items-center  min-h-2/3 min-w-1/2 p-5 ">
+            <h2 className="justify-start">Trip Menu</h2>
             {trips.length > 0 && trips.map((trip) => (
                 <div key={trip.id} id={trip.id}>
                     <div><strong>{trip.name}</strong></div>
@@ -29,10 +29,7 @@ export default function TripMenu() {
 
             ))}
 
-            <NewTrip trips={trips} setTrips={setTrips} />
-
-
-
-        </>
+            <NewTrip className="justify-end" trips={trips} setTrips={setTrips} />
+        </div>
     );
 }
