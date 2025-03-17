@@ -1,6 +1,5 @@
 package com.codecool.madmaps.controller;
 
-import com.codecool.madmaps.DTO.Recommendation.DetailedPlaceWithImgDTO;
 import com.codecool.madmaps.DTO.Recommendation.RecommendationDTO;
 import com.codecool.madmaps.service.RecommendationService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +24,4 @@ public class RecommendationController {
     public List<RecommendationDTO> getRecommendations(@RequestParam String location, @RequestParam String type) {
         return recommendationService.getRecommendations(location, type);
     }
-
-    @GetMapping("/detailed")
-    public DetailedPlaceWithImgDTO getDetailedPlace(@RequestParam String place_id) {
-        return recommendationService.getDetailedPlace(place_id);
-    }
-
 }
