@@ -31,6 +31,6 @@ public class PlaceController {
 
     @PostMapping("/")
     public PlaceDTO createPlace(@RequestBody PlaceCreateDTO placeCreateDTO) {
-        return placeService.createPlace(placeCreateDTO);
+        return placeService.createAndGetPlaceDTO(placeCreateDTO);
     }
 }
