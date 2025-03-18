@@ -24,6 +24,6 @@ public class TripActivityController {
 
     @DeleteMapping("/{tripActivityId}")
     public int deleteTripActivity(@PathVariable UUID tripActivityId) {
-        return tripService.deleteTripActivity(tripActivityId);
+        return tripService.deleteTripActivityById(tripActivityId);
     }
 }
