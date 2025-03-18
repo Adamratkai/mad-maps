@@ -19,11 +19,11 @@ public class TripActivityController {
 
     @PostMapping("/{tripId}")
     public UUID addTripActivity(@PathVariable UUID tripId, @RequestBody TripActivityCreateDTO tripActivityCreateDTO) {
-        return tripService.addTripActivity(tripActivityCreateDTO);
+        return tripService.addTripActivity(tripId, tripActivityCreateDTO);
     }
 
     @DeleteMapping("/{tripActivityId}")
-    public boolean deleteTripActivity(@PathVariable UUID tripActivityId) {
+    public int deleteTripActivity(@PathVariable UUID tripActivityId) {
         return tripService.deleteTripActivity(tripActivityId);
     }
 }
