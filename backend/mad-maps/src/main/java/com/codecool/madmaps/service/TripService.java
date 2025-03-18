@@ -48,14 +48,19 @@ public class TripService {
 
 
     @Transactional
-    public void addTripActivity(TripActivityCreateDTO tripActivityCreateDTO) {
+    public UUID addTripActivity(TripActivityCreateDTO tripActivityCreateDTO) {
         TripActivity newTripActivity = new TripActivity();
         newTripActivity.setVisitTime(tripActivityCreateDTO.visitTime());
         Trip trip = this.tripRepository.findByTripId(tripActivityCreateDTO.tripId()).orElseThrow(() -> new NoSuchElementException("Trip not found"));
         newTripActivity.setTrip(trip);
         Place place = this.placeRepository.findByPlaceId(tripActivityCreateDTO.placeId()).orElseThrow(() -> new NoSuchElementException("Place not found"));
         newTripActivity.setPlace(place);
-        this.tripActivityRepository.save(newTripActivity);
+        return this.tripActivityRepository.save(newTripActivity).getTripActivityId();
+    }
+
+
+    public int deleteTripActivityById(UUID tripActivityId) {
+        return this.tripActivityRepository.deleteByTripActivityId(tripActivityId);
     }
 
     public List<TripDTO> getTrips() {
@@ -69,7 +74,6 @@ public class TripService {
 
     }
 
-    @Transactional
     public int deleteTripById(UUID tripId) {
         return this.tripRepository.deleteByTripId(tripId);
     }
