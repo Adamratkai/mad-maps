@@ -25,16 +25,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        Traveller userEntity = travellerRepository.findByUserName(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username));
+        Traveller userEntity = travellerRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email));
 
         List<SimpleGrantedAuthority> roles = new ArrayList<>();
         for (Role role : userEntity.getRoles()) {
             roles.add(new SimpleGrantedAuthority(role.getRoleType().toString()));
         }
 
-        return new User(userEntity.getUserName(), userEntity.getPassword(), roles);
+        return new User(userEntity.getEmail(), userEntity.getPassword(), roles);
     }
 }
