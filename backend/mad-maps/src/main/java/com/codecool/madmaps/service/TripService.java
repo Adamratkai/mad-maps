@@ -68,6 +68,19 @@ public class TripService {
 
     }
 
+    @Transactional
+    public int deleteTripById(UUID tripId) {
+        return this.tripRepository.deleteByTripId(tripId);
+    }
+
+    @Transactional
+    public void updateTripById(UUID tripId, TripUpdateDTO tripUpdateDTO) {
+        Trip trip = this.tripRepository.findByTripId(tripId).orElseThrow(() -> new NoSuchElementException("Trip not found"));
+        trip.setName(tripUpdateDTO.name());
+        trip.setStartDate(tripUpdateDTO.startDate());
+        trip.setEndDate(tripUpdateDTO.endDate());
+    }
+
     private TripDTO convertTripToTripDTO(Trip trip) {
         return new TripDTO(trip.getTripId(), trip.getName(), trip.getStartDate(), trip.getEndDate());
     }
