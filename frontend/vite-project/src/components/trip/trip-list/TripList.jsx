@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import NewTrip from "./NewTrip.jsx";
+import AddTrip from "./AddTrip.jsx";
 
-export default function TripMenu() {
+export default function TripList() {
     const [trips, setTrips] = useState([]);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function TripMenu() {
 
             ))}
 
-            <NewTrip className="justify-end" trips={trips} setTrips={setTrips} />
+            <AddTrip className="justify-end" trips={trips} setTrips={setTrips} />
         </div>
     );
 }

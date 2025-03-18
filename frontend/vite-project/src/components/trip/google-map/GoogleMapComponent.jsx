@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useJsApiLoader} from "@react-google-maps/api";
-import MapComponent from "./MapComponent";
-import SearchBarComponent from "./SearchBarComponent";
+import MapComponent from "./MapComponent.jsx";
+import SearchBarComponent from "./SearchBarComponent.jsx";
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const googlaMapsLibrary = ["places"]

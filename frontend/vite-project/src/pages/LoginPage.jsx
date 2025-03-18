@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 
 
-const Login = () => {
+const LoginPage = () => {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
@@ -64,4 +64,4 @@ const Login = () => {
 
 }
 
-export default Login;
+export default LoginPage;

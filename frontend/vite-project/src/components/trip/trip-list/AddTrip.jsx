@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from "axios";
 
-function NewTrip({trips, setTrips}) {
+function AddTrip({trips, setTrips}) {
     const [newTrip, setNewTrip] = useState({ name: "", startDate: "", endDate: "" });
 
     const formatDateISO = (date) => {
@@ -35,7 +35,7 @@ function NewTrip({trips, setTrips}) {
               name="name"
               value={newTrip.name}
               onChange={handleInputChange}
-              placeholder="Trip Name"
+              placeholder="TripPage Name"
               required
           />
           <input
@@ -53,8 +53,8 @@ function NewTrip({trips, setTrips}) {
               onChange={handleInputChange}
               required
           />
-          <button type="submit">Add Trip</button>
+          <button type="submit">Add TripPage</button>
       </form>  )
 }
 
-export default NewTrip
+export default AddTrip

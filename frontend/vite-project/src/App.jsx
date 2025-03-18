@@ -1,11 +1,11 @@
 import './App.css'
 import Navbar from "./components/Navbar.jsx";
 import {createBrowserRouter, RouterProvider} from "react-router";
-import HomePage from "./components/HomePage.jsx";
-import ErrorPage from "./components/ErrorPage.jsx";
-import Trip from "./components/Trip.jsx";
-import Login from "./components/Login.jsx";
-import Register from "./components/Register.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import TripPage from "./pages/TripPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
 
 
 function Layout({children}) {
@@ -21,10 +21,10 @@ function Layout({children}) {
 
 const router = createBrowserRouter([
     {path: "/", element: <Layout><HomePage/></Layout>},
-    {path: "/trip", element: <Layout><Trip/></Layout>},
+    {path: "/trip", element: <Layout><TripPage/></Layout>},
     {path: "*", element: <ErrorPage/>},
-    {path: "/login", element: <Layout><Login/></Layout>},
-    {path: "/register", element: <Layout><Register/></Layout>},
+    {path: "/login", element: <Layout><LoginPage/></Layout>},
+    {path: "/register", element: <Layout><RegisterPage/></Layout>},
 ]);
 
 function App() {
