@@ -48,7 +48,7 @@ public class TripService {
 
 
     @Transactional
-    public UUID addTripActivity(TripActivityCreateDTO tripActivityCreateDTO) {
+    public UUID addTripActivity(UUID tripId, TripActivityCreateDTO tripActivityCreateDTO) {
         TripActivity newTripActivity = new TripActivity();
         newTripActivity.setVisitTime(tripActivityCreateDTO.visitTime());
         Trip trip = this.tripRepository.findByTripId(tripActivityCreateDTO.tripId()).orElseThrow(() -> new NoSuchElementException("Trip not found"));
