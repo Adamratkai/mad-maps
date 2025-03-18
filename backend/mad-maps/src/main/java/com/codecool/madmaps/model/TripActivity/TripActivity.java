@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "trip_activities")
@@ -21,6 +22,9 @@ public class TripActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID tripId;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "place_id", nullable = false)

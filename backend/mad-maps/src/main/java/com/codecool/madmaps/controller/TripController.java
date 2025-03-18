@@ -38,6 +38,12 @@ public class TripController {
 
     @PutMapping("/{tripId}")
     public boolean updateTrip(@PathVariable UUID tripId, @RequestBody TripUpdateDTO tripUpdateDTO) {
-        return false;
+        return tripService.updateTripById(tripId);
     }
+
+    @DeleteMapping("/{tripId}")
+    public boolean deleteTrip(@PathVariable UUID tripId) {
+        return tripService.deleteTripById(tripId);
+    }
+
 }
