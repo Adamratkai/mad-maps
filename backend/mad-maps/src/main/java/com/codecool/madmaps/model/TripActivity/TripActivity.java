@@ -23,8 +23,13 @@ public class TripActivity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false)
     private UUID tripId;
+
+    @PrePersist
+    private void onCreate() {
+        this.tripId = UUID.randomUUID();
+    }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "place_id", nullable = false)
