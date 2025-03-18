@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
-    @EntityGraph(attributePaths = "tripActivities")
+    @EntityGraph(attributePaths = {"tripActivities"})
     Optional<Trip> findByTripId(UUID tripId);
+    int deleteByTripId(UUID tripId);
 }

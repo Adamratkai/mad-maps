@@ -28,9 +28,4 @@ public class RecommendationService {
         return response.results().stream().limit(maxResults).collect(Collectors.toList());
     }
 
-    private byte[] getPhoto(String photo_reference) {
-        String url = String.format("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=%s&key=%s", photo_reference, googleMapsApiKey);
-        return restTemplate.getForObject(url, byte[].class);
-    }
-
 }

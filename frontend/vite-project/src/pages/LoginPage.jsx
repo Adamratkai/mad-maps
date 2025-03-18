@@ -1,27 +1,26 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
+import {AuthContext} from "./AuthProvider.jsx";
 
 
 const LoginPage = () => {
-    const [user, setUser] = useState("");
+    const {login, error} = useContext(AuthContext);
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post("/api/user/login", {user, password});
-            setError(null);
+        login(email, password);
+        if (!error) {
+            setShowPopup(true);
             setTimeout(() => {
                 setShowPopup(false);
                 navigate("/trip");
             }, 2000);
-        } catch (err) {
-            setError(err);
         }
     };
 
@@ -30,13 +29,13 @@ const LoginPage = () => {
             <form onSubmit={handleLogin}>
                 <fieldset className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
                     <legend className="fieldset-legend">Login</legend>
-                    <label className="fieldset-label">Username</label>
+                    <label className="fieldset-label">Email</label>
                     <input type="text"
                            required
                            className="input"
-                           placeholder="Username"
-                           value={user}
-                           onChange={(e) => setUser(e.target.value)}
+                           placeholder="Email"
+                           value={email}
+                           onChange={(e) => setEmail(e.target.value)}
                     />
                     <label className="fieldset-label">Password</label>
                     <input type="password"

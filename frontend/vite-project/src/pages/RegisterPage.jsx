@@ -1,34 +1,26 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router";
+import {AuthContext} from "./AuthProvider.jsx";
 
 const RegisterPage = () => {
+    const {register, error} = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
-
-        if (password !== confirmPassword) {
-            setError("Passwords do not match");
-            return;
-        }
-
-        try {
-            await axios.post("/api/user/register", {username, password});
-
-            setError(null);
+        register(username, email, password);
+        if (!error) {
+            setShowPopup(true);
             setTimeout(() => {
                 setShowPopup(false);
                 navigate("/");
             }, 2000);
-        } catch (err) {
-            setError("Failed to register. Try again.");
-            setShowPopup(false);
         }
     };
 
@@ -44,6 +36,15 @@ const RegisterPage = () => {
                         className="input"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                    <label className="fieldset-label">email</label>
+                    <input
+                        type="text"
+                        placeholder="email"
+                        className="input"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <label className="fieldset-label">Password</label>

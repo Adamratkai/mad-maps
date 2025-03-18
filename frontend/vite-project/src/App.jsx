@@ -1,12 +1,13 @@
 import './App.css'
 import Navbar from "./components/Navbar.jsx";
-import {createBrowserRouter, RouterProvider} from "react-router";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router";
 import HomePage from "./pages/HomePage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import TripPage from "./pages/TripPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-
+import {AuthContext, AuthProvider} from "./components/AuthProvider.jsx";
+import {useContext} from "react";
 
 function Layout({children}) {
     return (
@@ -19,9 +20,17 @@ function Layout({children}) {
     );
 }
 
+const ProtectedRoute = ({children}) => {
+    const {user} = useContext(AuthContext);
+    if (!user) {
+        return <Navigate to="/"/>;
+    } else {
+        return children;
+    }
+}
 const router = createBrowserRouter([
     {path: "/", element: <Layout><HomePage/></Layout>},
-    {path: "/trip", element: <Layout><TripPage/></Layout>},
+    {path: "/trip", element: <ProtectedRoute><Layout><TripPage/></Layout></ProtectedRoute>},
     {path: "*", element: <ErrorPage/>},
     {path: "/login", element: <Layout><LoginPage/></Layout>},
     {path: "/register", element: <Layout><RegisterPage/></Layout>},
@@ -29,7 +38,9 @@ const router = createBrowserRouter([
 
 function App() {
     return (
-        <RouterProvider router={router}></RouterProvider>
+        <AuthProvider>
+            <RouterProvider router={router}></RouterProvider>
+        </AuthProvider>
     );
 }
 
