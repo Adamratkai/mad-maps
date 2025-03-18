@@ -24,11 +24,11 @@ public class TripActivity {
     private long id;
 
     @Column(nullable = false)
-    private UUID tripId;
+    private UUID tripActivityId;
 
     @PrePersist
     private void onCreate() {
-        this.tripId = UUID.randomUUID();
+        this.tripActivityId = UUID.randomUUID();
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
