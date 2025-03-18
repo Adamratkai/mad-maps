@@ -51,7 +51,7 @@ public class TripService {
     public UUID addTripActivity(UUID tripId, TripActivityCreateDTO tripActivityCreateDTO) {
         TripActivity newTripActivity = new TripActivity();
         newTripActivity.setVisitTime(tripActivityCreateDTO.visitTime());
-        Trip trip = this.tripRepository.findByTripId(tripActivityCreateDTO.tripId()).orElseThrow(() -> new NoSuchElementException("Trip not found"));
+        Trip trip = this.tripRepository.findByTripId(tripId).orElseThrow(() -> new NoSuchElementException("Trip not found"));
         newTripActivity.setTrip(trip);
         Place place = this.placeRepository.findByPlaceId(tripActivityCreateDTO.placeId()).orElseThrow(() -> new NoSuchElementException("Place not found"));
         newTripActivity.setPlace(place);
