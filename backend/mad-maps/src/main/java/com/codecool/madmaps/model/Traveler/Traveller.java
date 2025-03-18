@@ -22,12 +22,13 @@ public class Traveller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true)
     private String userName;
 
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false,unique = true)
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)

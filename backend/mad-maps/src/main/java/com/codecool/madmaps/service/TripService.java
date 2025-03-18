@@ -4,9 +4,11 @@ package com.codecool.madmaps.service;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
 import com.codecool.madmaps.DTO.Trip.*;
 import com.codecool.madmaps.model.Place.Place;
+import com.codecool.madmaps.model.Traveler.Traveller;
 import com.codecool.madmaps.model.Trip.Trip;
 import com.codecool.madmaps.model.TripActivity.TripActivity;
 import com.codecool.madmaps.repository.PlaceRepository;
+import com.codecool.madmaps.repository.TravellerRepository;
 import com.codecool.madmaps.repository.TripActivityRepository;
 import com.codecool.madmaps.repository.TripRepository;
 import jakarta.transaction.Transactional;
@@ -23,19 +25,23 @@ public class TripService {
     private final TripRepository tripRepository;
     private final PlaceRepository placeRepository;
     private final TripActivityRepository tripActivityRepository;
+    private final TravellerService travellerService;
 
-    public TripService(TripRepository tripRepository, PlaceRepository placeRepository, TripActivityRepository tripActivityRepository) {
+    public TripService(TripRepository tripRepository, PlaceRepository placeRepository, TripActivityRepository tripActivityRepository, TravellerRepository travellerRepository, TravellerService travellerService) {
         this.tripRepository = tripRepository;
         this.placeRepository = placeRepository;
         this.tripActivityRepository = tripActivityRepository;
+        this.travellerService = travellerService;
     }
 
     public UUID createTrip(TripCreateDTO tripCreateDTO) {
+        Traveller traveller = travellerService.getAuthenticatedUser();
         Trip newTrip = new Trip();
         newTrip.setTripId(UUID.randomUUID());
         newTrip.setName(tripCreateDTO.name());
         newTrip.setStartDate(tripCreateDTO.startDate());
         newTrip.setEndDate(tripCreateDTO.endDate());
+        newTrip.setTraveller(traveller);
         return this.tripRepository.save(newTrip).getTripId();
     }
 
