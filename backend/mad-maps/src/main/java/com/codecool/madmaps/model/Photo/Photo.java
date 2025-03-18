@@ -17,9 +17,13 @@ public class Photo {
     private Long id;
 
     @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID photoId;
 
     @Column(nullable = false)
     private byte[] photo;
+
+    @PrePersist
+    public void generateUUID() {
+        this.photoId = UUID.randomUUID();
+    }
 }
