@@ -1,5 +1,6 @@
 package com.codecool.madmaps.model.Place;
 
+import com.codecool.madmaps.model.Photo.Photo;
 import com.codecool.madmaps.model.PlaceType.PlaceType;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
@@ -45,6 +46,9 @@ public class Place {
     @Type(JsonType.class)
     @Column(columnDefinition = "jsonb")
     private List<String> openingHours;
+
+    @OneToMany
+    private List<Photo> photos;
 
     @Transient
     public double calculateScore() {
