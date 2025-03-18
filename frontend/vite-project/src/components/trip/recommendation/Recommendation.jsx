@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import RecommendedPlace from "./RecommendedPlace";
-import RecommendationDetailedPlace from "./RecommendationDetailedPlace";
+import RecommendedPlace from "./RecommendedPlace.jsx";
+import RecommendationDetailedPlace from "./RecommendationDetailedPlace.jsx";
 
 function Recommendation({location, onChange}) {
   const [recommendations, setRecommendations] = useState([]);

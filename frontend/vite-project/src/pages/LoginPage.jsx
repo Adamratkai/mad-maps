@@ -5,7 +5,7 @@ import {useNavigate} from "react-router";
 import {AuthContext} from "./AuthProvider.jsx";
 
 
-const Login = () => {
+const LoginPage = () => {
     const {login, error} = useContext(AuthContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -63,4 +63,4 @@ const Login = () => {
 
 }
 
-export default Login;
+export default LoginPage;

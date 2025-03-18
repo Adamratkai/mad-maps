@@ -3,7 +3,7 @@ import axios from "axios";
 import {useNavigate} from "react-router";
 import {AuthContext} from "./AuthProvider.jsx";
 
-const Register = () => {
+const RegisterPage = () => {
     const {register, error} = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -80,4 +80,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default RegisterPage;

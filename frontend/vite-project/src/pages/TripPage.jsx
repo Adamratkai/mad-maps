@@ -1,9 +1,9 @@
-import GoogleMapComponent from './GoogleMapComponent'
-import TripMenu from "./tripmenu/TripMenu.jsx";
-import Recommendation from "./recommendation/Recommendation.jsx";
+import GoogleMapComponent from '../components/trip/google-map/GoogleMapComponent.jsx'
+import TripList from "../components/trip/trip-list/TripList.jsx";
+import Recommendation from "../components/trip/recommendation/Recommendation.jsx";
 import {useState} from "react";
 
-function Trip() {
+function TripPage() {
     const [location, setLocation] = useState(null);
 
     function handleLocationChange(location) {
@@ -16,7 +16,7 @@ function Trip() {
                 <GoogleMapComponent onLocationChange={handleLocationChange}/>
             </div>
             <div className="col-span-1 row-span-2 flex items-center justify-center">
-                <TripMenu/>
+                <TripList/>
             </div>
             {location &&
                 <div className="col-span-2  flex items-center justify-center">
@@ -28,4 +28,4 @@ function Trip() {
     )
 }
 
-export default Trip
+export default TripPage

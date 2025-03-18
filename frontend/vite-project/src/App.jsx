@@ -1,11 +1,11 @@
 import './App.css'
 import Navbar from "./components/Navbar.jsx";
 import {createBrowserRouter, Navigate, RouterProvider} from "react-router";
-import HomePage from "./components/HomePage.jsx";
-import ErrorPage from "./components/ErrorPage.jsx";
-import Trip from "./components/Trip.jsx";
-import Login from "./components/Login.jsx";
-import Register from "./components/Register.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import TripPage from "./pages/TripPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
 import {AuthContext, AuthProvider} from "./components/AuthProvider.jsx";
 import {useContext} from "react";
 
@@ -30,10 +30,10 @@ const ProtectedRoute = ({children}) => {
 }
 const router = createBrowserRouter([
     {path: "/", element: <Layout><HomePage/></Layout>},
-    {path: "/trip", element: <ProtectedRoute><Layout><Trip/></Layout></ProtectedRoute>},
+    {path: "/trip", element: <ProtectedRoute><Layout><TripPage/></Layout></ProtectedRoute>},
     {path: "*", element: <ErrorPage/>},
-    {path: "/login", element: <Layout><Login/></Layout>},
-    {path: "/register", element: <Layout><Register/></Layout>},
+    {path: "/login", element: <Layout><LoginPage/></Layout>},
+    {path: "/register", element: <Layout><RegisterPage/></Layout>},
 ]);
 
 function App() {
