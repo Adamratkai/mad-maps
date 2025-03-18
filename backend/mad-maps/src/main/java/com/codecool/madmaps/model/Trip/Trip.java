@@ -31,11 +31,17 @@ public class Trip {
     @Column(nullable = false)
     private UUID tripId;
 
+
     @Column(nullable = false)
     private LocalDate startDate;
 
     @Column(nullable = false)
     private LocalDate endDate;
+
+    @PrePersist
+    private void onCreate() {
+        this.tripId = UUID.randomUUID();
+    }
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TripActivity> tripActivities;
