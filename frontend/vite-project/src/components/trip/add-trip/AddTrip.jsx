@@ -1,9 +1,11 @@
 import {useState} from 'react';
 import axios from "axios";
+import useAxios from "../../useAxios.js";
 
 
 function AddTrip({onTripAdd}) {
     const [newTrip, setNewTrip] = useState({ name: "", startDate: "", endDate: "" });
+    const axiosInstance = useAxios();
 
     function formatDateISO(date) {
         return date.toISOString().split("T")[0];
@@ -13,8 +15,8 @@ function AddTrip({onTripAdd}) {
     async function addTrip(e) {
         e.preventDefault();
         try {
-            const response = await axios.post("/api/trips/", newTrip);
-            onTripAdd(response.data);
+            const response = await axiosInstance.post("/api/trips/", newTrip);
+            onTripAdd({tripId: response.data, ...newTrip});
             setNewTrip({ name: "", startDate: "", endDate: "" });
         } catch (error) {
             console.error("Error adding trip:", error);
