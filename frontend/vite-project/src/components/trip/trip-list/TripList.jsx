@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AddTrip from "./AddTrip.jsx";
+import useAxios from "../../useAxios.js";
 
 export default function TripList() {
     const [trips, setTrips] = useState([]);
-
+    const axiosInstance = useAxios();
     useEffect(() => {
         fetchTrips();
     }, []);
 
     const fetchTrips = async () => {
         try {
-            const response = await axios.get("/api/trips/");
+            const response = await axiosInstance.get("/trips/");
             setTrips(response.data);
         } catch (error) {
             console.error("Error fetching trips:", error);

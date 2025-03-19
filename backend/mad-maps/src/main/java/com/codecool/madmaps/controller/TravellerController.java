@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/traveller")
+@RequestMapping("/api/traveller")
 public class TravellerController {
 
     private final RoleRepository roleRepository;

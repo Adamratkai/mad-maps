@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState} from "react";
 import RecommendedPlace from "./RecommendedPlace.jsx";
 import RecommendationDetailedPlace from "./RecommendationDetailedPlace.jsx";
+import useAxios from "../../useAxios.js";
 
 function Recommendation({location, onChange}) {
   const [recommendations, setRecommendations] = useState([]);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const axiosInstance = useAxios();
 
   useEffect(() => {
     let isMounted = true;
     async function fetchRecommendations () {
       try {
-        const response = await axios.get(`/api/recommendations/`, {
+
+        const response = await axiosInstance.get(`/recommendations/`, {
           params: {
             location: `${location.lat},${location.lng}`,
             type: "restaurant",

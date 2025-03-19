@@ -1,17 +1,16 @@
 import React, {useState, useEffect, useRef} from "react";
-import axios from "axios";
+import useAxios from "../../useAxios.js";
 
 const MAX_RATING = 5;
 function RecommendationDetailedPlace({place_id, handlePlaceClose, onAddPlace}) {
-
     const [place, setPlace] = useState(null);
     const modalRef = useRef(null);
-
+    const axiosInstance = useAxios();
     useEffect(() => {
       let isMounted = true;
       async function fetchPlace (){
         try {
-          const response = await axios.get(`/api/recommendations/detailed`, {
+          const response = await axiosInstance.get(`/recommendations/detailed`, {
             params: {
               place_id: place_id,
             }
