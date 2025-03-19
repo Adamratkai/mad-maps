@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router";
-import {AuthContext} from "./AuthProvider.jsx";
+import {AuthContext} from "../components/AuthProvider.jsx";
 
 const RegisterPage = () => {
     const {register, error} = useContext(AuthContext);
@@ -22,6 +22,7 @@ const RegisterPage = () => {
                 navigate("/");
             }, 2000);
         }
+        setShowPopup(true);
     };
 
     return (
@@ -40,7 +41,7 @@ const RegisterPage = () => {
                     />
                     <label className="fieldset-label">email</label>
                     <input
-                        type="text"
+                        type="email"
                         placeholder="email"
                         className="input"
                         value={email}
