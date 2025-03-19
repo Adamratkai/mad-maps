@@ -6,8 +6,8 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import TripPage from "./pages/TripPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-import {AuthContext, AuthProvider} from "./components/AuthProvider.jsx";
 import {useContext} from "react";
+import {AuthContext, AuthProvider} from "./components/AuthProvider.jsx";
 
 function Layout({children}) {
     return (
@@ -21,9 +21,9 @@ function Layout({children}) {
 }
 
 const ProtectedRoute = ({children}) => {
-    const {user} = useContext(AuthContext);
-    if (!user) {
-        return <Navigate to="/"/>;
+    const {token} = useContext(AuthContext);
+    if (!token) {
+        return <Navigate to="/login"/>;
     } else {
         return children;
     }
