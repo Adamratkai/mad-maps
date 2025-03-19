@@ -1,6 +1,9 @@
 import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {AuthContext} from "./AuthProvider.jsx";
 
 function Navbar() {
+    const {isLoggedIn, logout} = useContext(AuthContext);
     return (
         <nav className="navbar bg-base-300 shadow-sm sticky top-0 z-50">
             <div className="navbar-start">
@@ -16,15 +19,20 @@ function Navbar() {
                     <div className="w-10 rounded-full">
                         <img
                             alt="Tailwind CSS Navbar component"
-                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"/>
                     </div>
                 </div>
                 <ul
                     tabIndex={0}
                     className="menu menu-md dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
 
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/register">Register</Link></li>
+                    {!isLoggedIn ? (<>
+                            <li><Link to="/login">Login</Link></li>
+                            <li><Link to="/register">Register</Link></li>
+                        </>) :
+                        (<li>
+                            <button onClick={() => logout()}>Logout</button>
+                        </li>)}
                 </ul>
             </div>
         </nav>
