@@ -2,6 +2,7 @@ import GoogleMapComponent from '../components/trip/google-map/GoogleMapComponent
 import TripListPage from "./TripListPage.jsx";
 import Recommendation from "../components/trip/recommendation/Recommendation.jsx";
 import {useState} from "react";
+import TripDetails from "../components/trip/trip-details/TripDetails.jsx";
 
 function TripPage() {
     const [location, setLocation] = useState(null);
@@ -16,7 +17,7 @@ function TripPage() {
                 <GoogleMapComponent onLocationChange={handleLocationChange}/>
             </div>
             <div className="col-span-1 row-span-2 flex items-center justify-center">
-                <TripListPage/>
+                <TripDetails/>
             </div>
             {location &&
                 <div className="col-span-2  flex items-center justify-center">
