@@ -1,15 +1,14 @@
 import axios from "axios";
-import { AuthContext } from "./AuthProvider.jsx";
 import { useContext } from "react";
+import {AuthContext} from "./AuthProvider.jsx";
 
 const useAxios = () => {
     const { token } = useContext(AuthContext);
 
     const axiosInstance = axios.create({
-        baseURL: "http://localhost:8080/api",
+        baseURL: "/api",
         headers: { "Content-Type": "application/json" },
     });
-
     axiosInstance.interceptors.request.use(
         (config) => {
             if (token) {
