@@ -1,60 +1,56 @@
-import React, {useState} from 'react'
+import {useState} from 'react';
 import axios from "axios";
 
-function AddTrip({trips, setTrips}) {
+
+function AddTrip({onTripAdd}) {
     const [newTrip, setNewTrip] = useState({ name: "", startDate: "", endDate: "" });
 
-    const formatDateISO = (date) => {
-        const isoString = date.toISOString();
-        const formattedDate = isoString.split("T")[0];
-        return formattedDate;
-    };
+    function formatDateISO(date) {
+        return date.toISOString().split("T")[0];
+    }
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewTrip((prevTrip) => ({
-            ...prevTrip,
-            [name]: value,
-        }));
-    };
 
-    const addTrip = async (e) => {
+    async function addTrip(e) {
         e.preventDefault();
         try {
             const response = await axios.post("/api/trips/", newTrip);
-            setTrips([...trips, response.data]);
+            onTripAdd(response.data);
             setNewTrip({ name: "", startDate: "", endDate: "" });
         } catch (error) {
             console.error("Error adding trip:", error);
         }
-    };
+    }
+
+    function handleChange(e, fieldName) {
+        setNewTrip((prevState) => {
+            return {...prevState, [fieldName]: e.target.value};
+        });
+    }
+
   return (
       <form className="flex flex-col" onSubmit={addTrip}>
           <input
               type="text"
-              name="name"
               value={newTrip.name}
-              onChange={handleInputChange}
-              placeholder="TripPage Name"
+              onChange={(e) => handleChange(e, "name") }
+              placeholder="Trip Name"
               required
           />
           <input
               type="date"
-              name="startDate"
               min={formatDateISO(new Date())}
               value={newTrip.startDate}
-              onChange={handleInputChange}
+              onChange={(e) => handleChange(e, "startDate") }
               required
           />
           <input
               type="date"
-              name="endDate"
               value={newTrip.endDate}
-              onChange={handleInputChange}
+              onChange={(e) => handleChange(e, "endDate") }
               required
           />
-          <button type="submit">Add TripPage</button>
+          <button type="submit">Add Trip</button>
       </form>  )
 }
 
-export default AddTrip
+export default AddTrip;
