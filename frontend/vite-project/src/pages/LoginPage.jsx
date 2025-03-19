@@ -1,8 +1,7 @@
 import React, {useContext, useState} from "react";
-import axios from "axios";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
-import {AuthContext} from "./AuthProvider.jsx";
+import {AuthContext} from "../components/AuthProvider.jsx";
 
 
 const LoginPage = () => {
@@ -47,7 +46,7 @@ const LoginPage = () => {
                     />
 
                     <Link className="link link-primary" to={"/register"}>Don't have an account? Register here</Link>
-                    <submit className="btn btn-neutral mt-4">Login</submit>
+                    <button type="submit" className="btn btn-neutral mt-4">Login</button>
                 </fieldset>
             </form>
             {error && <p>{error}</p>}
