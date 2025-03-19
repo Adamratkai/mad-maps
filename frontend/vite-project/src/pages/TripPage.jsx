@@ -4,6 +4,7 @@ import Recommendation from "../components/trip/recommendation/Recommendation.jsx
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import useAxios from "../components/useAxios.js";
+import TripDetails from "../components/trip/trip-details/TripDetails.jsx";
 
 function TripPage() {
     const [location, setLocation] = useState(null);
@@ -63,7 +64,7 @@ function TripPage() {
                 </div>
             }
             <div className="col-span-1 row-span-2 flex items-center justify-center">
-                <TripDetails/>
+                <TripDetails tripDetail={tripDetail} activites={activities}/>
             </div>
             {location &&
                 <div className="col-span-2  flex items-center justify-center">
