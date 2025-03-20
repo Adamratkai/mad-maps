@@ -1,6 +1,7 @@
 package com.codecool.madmaps.controller;
 
 import com.codecool.madmaps.DTO.Jwt.JwtResponse;
+import com.codecool.madmaps.exceptions.UserAlreadyExistsException;
 import com.codecool.madmaps.model.Role.Role;
 import com.codecool.madmaps.model.Role.RoleType;
 import com.codecool.madmaps.model.Traveler.Traveller;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Set;

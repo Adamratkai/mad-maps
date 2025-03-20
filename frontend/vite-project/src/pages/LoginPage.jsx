@@ -13,7 +13,7 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        login(email, password);
+        const error = await login(email, password);
         if (!error) {
             setShowPopup(true);
             setTimeout(() => {
@@ -28,8 +28,9 @@ const LoginPage = () => {
             <form onSubmit={handleLogin}>
                 <fieldset className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
                     <legend className="fieldset-legend">Login</legend>
+                    {error && <p style={{color: "red"}}>{error}</p>}
                     <label className="fieldset-label">Email</label>
-                    <input type="text"
+                    <input type="email"
                            required
                            className="input"
                            placeholder="Email"
@@ -49,7 +50,6 @@ const LoginPage = () => {
                     <button type="submit" className="btn btn-neutral mt-4">Login</button>
                 </fieldset>
             </form>
-            {error && <p>{error}</p>}
             {showPopup && (
                 <dialog id="my_modal_1" className="modal modal-open">
                     <div className="modal-box">
