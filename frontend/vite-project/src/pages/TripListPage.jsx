@@ -15,7 +15,7 @@ export default function TripListPage() {
 
     async function fetchTrips(){
         try {
-            const response = await axiosInstance.get("/trips/");
+            const response = await axiosInstance.get("api/trips/");
             setTrips(response.data);
         } catch (error) {
             console.error("Error fetching trips:", error);
@@ -34,8 +34,8 @@ export default function TripListPage() {
         <div className="card flex flex-col bg-base-200  items-center  min-h-2/3 min-w-1/2 p-5 ">
             <h2 className="justify-start">Trips</h2>
             {trips.length > 0 && trips.map((trip) => (
-                <div key={trip.id}>
-                    <h2 onClick={() => handleClick(trip.id)}><strong>{trip.name}</strong></h2>
+                <div key={trip.tripId}>
+                    <h2 onClick={() => handleClick(trip.tripId)}><strong>{trip.name}</strong></h2>
                     <div>Start: {trip.startDate}</div>
                     <div>End: {trip.endDate}</div>
                 </div>
