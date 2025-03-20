@@ -3,37 +3,36 @@ import RecommendedPlace from "./RecommendedPlace.jsx";
 import RecommendationDetailedPlace from "./RecommendationDetailedPlace.jsx";
 import useAxios from "../../useAxios.js";
 
-function Recommendation({location, onChange}) {
+function Recommendation({location, onAddPlace}) {
   const [recommendations, setRecommendations] = useState([]);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
   const axiosInstance = useAxios();
 
   useEffect(() => {
-    let isMounted = true;
+    const abortController = new AbortController();
     async function fetchRecommendations () {
       try {
 
-        const response = await axiosInstance.get(`/recommendations/`, {
+        const response = await axiosInstance.get(`/api/recommendations/`, {
           params: {
             location: `${location.lat},${location.lng}`,
             type: "restaurant",
           },
+          signal: abortController.signal,
         });
-        if (isMounted) {
-          setRecommendations(response.data);
-        }
+        setRecommendations(response.data);
       } catch (error) {
         console.error("Error fetching recommendations:", error);
       }
     }
     fetchRecommendations();
     return () => {
-      isMounted = false;
+      abortController.abort();
     };
   }, [location.lat, location.lng]);
 
-  function handlePlaceClick(place_id) {
-    setSelectedPlaceId(place_id);
+  function handlePlaceClick(placeId) {
+    setSelectedPlaceId(placeId);
   }
 
   function handleCloseDetailedPlace() {
@@ -46,12 +45,12 @@ function Recommendation({location, onChange}) {
         <div className="recommendation-container">
             <div className="flex gap-5 ">
               {recommendations.map((recommendation) => (
-                  <RecommendedPlace key={recommendation.place_id} name={recommendation.name} price={recommendation.price_level} rating={recommendation.rating} handlePlaceClick={() => handlePlaceClick(recommendation.place_id)} />
+                  <RecommendedPlace key={recommendation.place_id} name={recommendation.name} price={recommendation.price_level} rating={recommendation.rating} onPlaceClick={() => handlePlaceClick(recommendation.place_id)} />
               ))}
             </div>
         </div>
       )}
-      {selectedPlaceId && <RecommendationDetailedPlace place_id={selectedPlaceId} handlePlaceClose={handleCloseDetailedPlace} onAddPlace={onChange}/>}
+      {selectedPlaceId && <RecommendationDetailedPlace placeId={selectedPlaceId} onPlaceClose={handleCloseDetailedPlace} onAddPlace={onAddPlace} />}
       </>
     );
 }
