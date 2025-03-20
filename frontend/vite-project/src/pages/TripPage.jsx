@@ -54,17 +54,14 @@ function TripPage() {
     }, []);
 
     return (
-        <div className="grid grid-cols-2 grid-rows-3 gap-4 p-4 h-screen">
-            <div className="col-span-1 row-span-2 flex items-center justify-center">
+        <div className="flex flex-col h-screen p-4">
+        <div className="flex flex-grow justify-center gap-4 mb-4">
                 <GoogleMapComponent onLocationChange={handleLocationChange}/>
-            </div>
             {activities &&
-            <div className="col-span-1 row-span-2 flex items-center justify-center">
                 <TripDetails tripDetail={tripDetail} activities={activities}/>
-            </div>
-            }
+            }</div>
             {location &&
-                <div className="col-span-2  flex items-center justify-center">
+                <div className="flex justify-center mt-4">
                     <Recommendation location={location} onAddPlace={handleAddPlace}/>
                 </div>
             }
