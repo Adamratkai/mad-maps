@@ -77,10 +77,13 @@ public class PlaceService {
         place.setRating(placeCreateDTO.rating());
         place.setPriceLevel(placeCreateDTO.priceLevel());
         place.setOpeningHours(placeCreateDTO.openingHours());
-        return this.placeRepository.save(place);
+        Place savedPlace = this.placeRepository.save(place);
+        List<Photo> savedPhotos = createPhotos(placeCreateDTO.photoReferences(), savedPlace);
+        savedPlace.setPhotos(savedPhotos);
+        return savedPlace;
     }
 
-    private PlaceType findOrCreatePlaceType(String placeType) {
+    public PlaceType findOrCreatePlaceType(String placeType) {
         return this.placeTypeRepository.findByPlaceType(placeType).orElseGet(() -> {
                 PlaceType newPlaceType = new PlaceType();
                 newPlaceType.setPlaceType(placeType);
@@ -88,8 +91,7 @@ public class PlaceService {
         });
     }
 
-
-    private Place findOrCreatePlace(String placeId) {
+    public Place findOrCreatePlace(String placeId) {
         return this.placeRepository.findByPlaceId(placeId).orElseGet(() -> {
             String fields = "name,place_id,rating,price_level,photos,opening_hours/weekday_text,types";
             String url = String.format("https://maps.googleapis.com/maps/api/place/details/json?fields=%s&place_id=%s&key=%s",
@@ -104,7 +106,7 @@ public class PlaceService {
                     detailedPlace.rating(),
                     detailedPlace.price_level(),
                     detailedPlace.opening_hours().weekday_text(),
-                    createPhotos(references)
+                    references
             );
            return createPlace(placeCreateDTO);
         });
@@ -114,13 +116,20 @@ public class PlaceService {
         return photos.stream().map(Photo::getPhotoId).collect(Collectors.toList());
     }
 
-    private List<Photo> createPhotos(List<String> references) {
+    public List<Photo> createPhotos(List<String> references, Place place) {
         List<Photo> photos = new ArrayList<>();
+        int max_photos = 2;
+        int counter = 0;
         for (String reference : references) {
+            if (counter >= max_photos) {
+                break;
+            }
             Photo photo = new Photo();
             photo.setPhoto(getPhotoFromGoogle(reference));
+            photo.setPlace(place);
             photoRepository.save(photo);
             photos.add(photo);
+            counter++;
         }
         return photos;
     }
