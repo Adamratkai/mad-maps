@@ -6,7 +6,7 @@ const useAxios = () => {
     const { token } = useContext(AuthContext);
 
     const axiosInstance = axios.create({
-        baseURL: "/api",
+        baseURL: "/",
         headers: { "Content-Type": "application/json" },
     });
     axiosInstance.interceptors.request.use(

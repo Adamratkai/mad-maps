@@ -1,4 +1,5 @@
 import GoogleMapComponent from '../components/trip/google-map/GoogleMapComponent.jsx'
+import TripListPage from "./TripListPage.jsx";
 import Recommendation from "../components/trip/recommendation/Recommendation.jsx";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
@@ -58,7 +59,7 @@ function TripPage() {
             </div>
             {activities &&
                 <div className="col-span-1 row-span-2 flex items-center justify-center">
-                <p>TripDetails</p>
+                    <TripListPage/>
                 </div>
             }
             {location &&

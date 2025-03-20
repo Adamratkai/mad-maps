@@ -18,7 +18,7 @@ const LoginPage = () => {
             setShowPopup(true);
             setTimeout(() => {
                 setShowPopup(false);
-                navigate("/trip");
+                navigate("/trip-list");
             }, 2000);
         }
     };
