@@ -1,6 +1,5 @@
 package com.codecool.madmaps.controller;
 
-import com.codecool.madmaps.exceptions.UserAlreadyExistsException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
