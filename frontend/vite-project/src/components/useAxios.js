@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useContext } from "react";
-import {AuthContext} from "./AuthProvider.jsx";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthProvider.jsx";
 
 const useAxios = () => {
-    const { token } = useContext(AuthContext);
+    const { token , logout} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const axiosInstance = axios.create({
         baseURL: "/",
@@ -17,6 +19,18 @@ const useAxios = () => {
             return config;
         },
         (error) => Promise.reject(error)
+    );
+
+    axiosInstance.interceptors.response.use(
+        (response) => response,
+        (error) => {
+            if (error.response && error.response.status === 401) {
+                console.error("Unauthorized! Redirecting to login...");
+                logout();
+                navigate("/login");
+            }
+            return Promise.reject(error);
+        }
     );
 
     return axiosInstance;

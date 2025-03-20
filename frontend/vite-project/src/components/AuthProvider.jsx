@@ -14,9 +14,12 @@ export const AuthProvider = ({children}) => {
             setUser(response.data.username)
             setToken(response.data.token);
             setIsLoggedIn(true)
+            setError(null);
             localStorage.setItem("token", response.data.token);
+            return null;
         } catch (error) {
-            setError(error);
+            setError(error.response.data.message);
+            return error;
         }
     }
 
@@ -31,14 +34,21 @@ export const AuthProvider = ({children}) => {
         try {
             await axios.post("/api/traveller/register", {username, email, password});
             setError(null);
+            return null;
         } catch (error) {
-            setError(error.message);
+            setError(error.response.data.message);
+            console.log(error.response.data.message);
+            return error;
         }
     }
 
+    const onPageChange = () => {
+        setError(null);
+    }
+
     return (
-        <AuthContext value={{user, setUser, login, register, logout, error, token,isLoggedIn}}>
+        <AuthContext.Provider value={{user, setUser, login, register, logout, error, token,isLoggedIn,onPageChange}}>
             {children}
-        </AuthContext>
+        </AuthContext.Provider>
     )
 }
