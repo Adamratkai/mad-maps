@@ -1,7 +1,7 @@
 import React from "react";
 
 const MAX_RATING = 5;
-const RecommendedPlace = ({ name, price, rating, handlePlaceClick }) => {
+const RecommendedPlace = ({ name, price, rating, onPlaceClick }) => {
     return (
         <div className="card lg:card-side bg-base-200 shadow-sm w-[200px]  ">
             <div className="card-body">
@@ -19,7 +19,7 @@ const RecommendedPlace = ({ name, price, rating, handlePlaceClick }) => {
                     {rating}
                 </div>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary" onClick={handlePlaceClick}>Details</button>
+                    <button className="btn btn-primary" onClick={onPlaceClick}>Details</button>
                 </div>
             </div>
         </div>
