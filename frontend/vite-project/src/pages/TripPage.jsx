@@ -59,13 +59,9 @@ function TripPage() {
                 <GoogleMapComponent onLocationChange={handleLocationChange}/>
             </div>
             {activities &&
-                <div className="col-span-1 row-span-2 flex items-center justify-center">
-                    <TripListPage/>
-                </div>
-            }
             <div className="col-span-1 row-span-2 flex items-center justify-center">
                 <TripDetails tripDetail={tripDetail} activites={activities}/>
-            </div>
+            </div>}
             {location &&
                 <div className="col-span-2  flex items-center justify-center">
                     <Recommendation location={location} onAddPlace={handleAddPlace}/>
