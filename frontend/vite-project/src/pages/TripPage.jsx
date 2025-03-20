@@ -18,12 +18,10 @@ function TripPage() {
 
     async function handleAddPlace(place) {
         try {
-
-            const response = await axiosInstance.post(`/trip-activities/${tripId}`, {
-                body: {
-                    placeId: place.placeId,
-                    visitTime: tripDetail.startDate,
-                }
+            console.log(place);
+            const response = await axiosInstance.post(`/api/trip-activities/${tripId}`, {
+                placeId: place.placeId,
+                visitTime: tripDetail.startDate + "T00:00:00",
             });
             setActivities((prev) => [...prev, {placeDTO: place, visitTime: tripDetail.visitTime}]);
             return response.data;
@@ -34,18 +32,20 @@ function TripPage() {
 
     useEffect(() => {
         const abortController = new AbortController();
-        async function fetchPlaces () {
+
+        async function fetchPlaces() {
             try {
 
-                const response = await axiosInstance.get(`/trips/${tripId}`,{
+                const response = await axiosInstance.get(`/api/trips/${tripId}`, {
                     signal: abortController.signal,
                 });
-                    setTripDetail(response.data);
-                    setActivities(response.data.tripActivities);
+                setTripDetail(response.data);
+                setActivities(response.data.tripActivities);
             } catch (error) {
                 console.error("Error fetching places:", error);
             }
         }
+
         fetchPlaces();
         return () => {
             abortController.abort();
