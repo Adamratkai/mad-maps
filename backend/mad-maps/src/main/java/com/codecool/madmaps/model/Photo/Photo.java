@@ -1,5 +1,6 @@
 package com.codecool.madmaps.model.Photo;
 
+import com.codecool.madmaps.model.Place.Place;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,10 @@ public class Photo {
 
     @Column(nullable = false)
     private UUID photoId;
+
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "photos")
+    private Place place;
 
     @Column(nullable = false)
     private byte[] photo;
