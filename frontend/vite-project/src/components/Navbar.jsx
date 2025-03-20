@@ -10,7 +10,7 @@ function Navbar() {
                 <Link to="/" className="btn btn-ghost text-xl">
                     Home
                 </Link>
-                <Link to="/trip" className="btn btn-ghost text-xl">
+                <Link to="/trip-list" className="btn btn-ghost text-xl">
                     Trip
                 </Link>
             </div>
