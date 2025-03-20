@@ -1,6 +1,6 @@
 function PhotosSlideShow({photos}) {
     return (
-        <div className="carousel w-full">
+        <div className="carousel max-h-52">
             {photos.map((photo, index) => {
                 const prevSlide = index === 0 ? photos.length - 1 : index - 1;
                 const nextSlide = index === photos.length - 1 ? 0 : index + 1;
