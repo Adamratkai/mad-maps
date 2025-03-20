@@ -26,7 +26,7 @@ public class Place {
     private Long id;
 
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String placeId;
 
 
@@ -34,7 +34,7 @@ public class Place {
     private String name;
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "place_place_type", joinColumns = @JoinColumn(name = "place_id"), inverseJoinColumns = @JoinColumn(name = "place_type_id"))
     private Set<PlaceType> placeTypes;
 
@@ -47,7 +47,7 @@ public class Place {
     @Column(columnDefinition = "jsonb")
     private List<String> openingHours;
 
-    @OneToMany
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Photo> photos;
 
     @Transient
