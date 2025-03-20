@@ -1,4 +1,2 @@
-INSERT INTO madmaps.public.role (role_type)
-values ('ROLE_ADMIN');
-INSERT INTO madmaps.public.role (role_type)
-values ('ROLE_USER')
+INSERT INTO role (role_type) VALUES ('ROLE_ADMIN') ON CONFLICT DO NOTHING;
+INSERT INTO role (role_type) VALUES ('ROLE_USER') ON CONFLICT DO NOTHING;
