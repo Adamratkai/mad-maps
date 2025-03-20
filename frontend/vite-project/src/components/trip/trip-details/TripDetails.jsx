@@ -1,11 +1,11 @@
 
 import TripActivity from "../trip-activity/TripActivity.jsx";
 
-function TripDetails({tripDetail: {tripName, startDate, endDate}, activities}) {
+function TripDetails({tripDetail: {name, startDate, endDate}, activities}) {
 
     return (
         <div>
-            {<div><h2>{tripName}</h2><p>{startDate}</p><p>{endDate}</p>
+            {<div><h2>{name}</h2><p>{startDate}</p><p>{endDate}</p>
                 <div className="recommendation-container">
                     <div className="flex gap-5 ">
                         {activities.map((activity) => (
