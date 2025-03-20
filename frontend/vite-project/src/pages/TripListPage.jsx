@@ -1,0 +1,48 @@
+import { useState, useEffect } from "react";
+import AddTrip from "../components/trip/add-trip/AddTrip.jsx";
+import useAxios from "../components/useAxios.js";
+import { useNavigate } from "react-router-dom";
+
+export default function TripListPage() {
+
+    const [trips, setTrips] = useState([]);
+    const navigate = useNavigate();
+
+    const axiosInstance = useAxios();
+    useEffect(() => {
+        fetchTrips();
+    }, []);
+
+    async function fetchTrips(){
+        try {
+            const response = await axiosInstance.get("api/trips/");
+            setTrips(response.data);
+        } catch (error) {
+            console.error("Error fetching trips:", error);
+        }
+    }
+
+    function handleClick(tripId) {
+        navigate(`/trip-editor/${tripId}`);
+    }
+
+    function handleTripAdd(newTrip) {
+        setTrips((prevTrips) => [...prevTrips,  newTrip]);
+    }
+
+    return (
+        <div className="card flex flex-col bg-base-200  items-center  min-h-2/3 min-w-1/2 p-5 ">
+            <h2 className="justify-start">Trips</h2>
+            {trips.length > 0 && trips.map((trip) => (
+                <div key={trip.tripId}>
+                    <h2 onClick={() => handleClick(trip.tripId)}><strong>{trip.name}</strong></h2>
+                    <div>Start: {trip.startDate}</div>
+                    <div>End: {trip.endDate}</div>
+                </div>
+
+            ))}
+
+            <AddTrip className="justify-end" onTripAdd={handleTripAdd} />
+        </div>
+    );
+}

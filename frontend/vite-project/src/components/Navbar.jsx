@@ -10,7 +10,7 @@ function Navbar() {
                 <Link onClick={()=> onPageChange()} to="/" className="btn btn-ghost text-xl">
                     Home
                 </Link>
-                <Link onClick={()=> onPageChange()} to="/trip" className="btn btn-ghost text-xl">
+                <Link onClick={()=> onPageChange()} to="/trip-list" className="btn btn-ghost text-xl">
                     Trip
                 </Link>
             </div>
