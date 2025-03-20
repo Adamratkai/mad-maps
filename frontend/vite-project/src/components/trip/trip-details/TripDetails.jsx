@@ -1,20 +1,19 @@
 import TripActivity from "../trip-activity/TripActivity.jsx";
 
-function TripDetails({tripDetail: {tripName, startDate, endDate}, activities}) {
-
+function TripDetails({ tripDetail: { tripName, startDate, endDate }, activities }) {
     return (
-        <div>
-            {<div><h2>{tripName}</h2><p>{startDate}</p><p>{endDate}</p>
-                <div className="recommendation-container">
-                    <div className="flex gap-5 ">
-                        {activities.map((activity) => (
-                            <TripActivity key={activity.placeDTO.name} tripActivity={activity}/>))}</div>
+        <div className="w-[400px] h-[500px] overflow-auto p-4 border rounded-xl shadow-md bg-white">
+            <h2 className="text-xl text-gray-500 font-semibold">{tripName}</h2>
+            <p className="text-sm text-gray-500">{startDate} - {endDate}</p>
+            <div className="recommendation-container mt-4">
+                <div className="flex flex-col gap-3">
+                    {activities.map((activity) => (
+                        <TripActivity key={activity.placeDTO.name} tripActivity={activity} />
+                    ))}
                 </div>
             </div>
-            }
         </div>
-    )
-
+    );
 }
 
 export default TripDetails;

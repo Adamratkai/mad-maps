@@ -35,11 +35,11 @@ const GoogleMapComponent = ({onLocationChange}) => {
         return (<div>Loading...</div>)
     }
     return (
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="flex flex-col h-screen p-4">
             <div >
                 <SearchBarComponent onPlacesChanged={onPlacesChanged}/>
             </div>
-            <div>
+            <div className="flex-grow flex items-center justify-center">
                 <MapComponent markerPosition={markerPosition} onClick={onMapClick}/>
             </div>
         </div>
