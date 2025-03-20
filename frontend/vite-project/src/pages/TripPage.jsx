@@ -60,8 +60,9 @@ function TripPage() {
             </div>
             {activities &&
             <div className="col-span-1 row-span-2 flex items-center justify-center">
-                <TripDetails tripDetail={tripDetail} activites={activities}/>
-            </div>}
+                <TripDetails tripDetail={tripDetail} activities={activities}/>
+            </div>
+            }
             {location &&
                 <div className="col-span-2  flex items-center justify-center">
                     <Recommendation location={location} onAddPlace={handleAddPlace}/>
