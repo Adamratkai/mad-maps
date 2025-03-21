@@ -14,6 +14,7 @@
     "@tailwindcss/vite": "^4.0.9",
     "@vis.gl/react-google-maps": "^1.5.1",
     "axios": "^1.7.9",
+    "babel-plugin-react-compiler": "^19.0.0-beta-3229e95-20250315",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-google-autocomplete": "^2.7.4",

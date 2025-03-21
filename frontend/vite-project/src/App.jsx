@@ -9,14 +9,16 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 import {useContext} from "react";
 import {AuthContext, AuthProvider} from "./components/AuthProvider.jsx";
 import TripListPage from "./pages/TripListPage.jsx";
+import Footer from "./components/Footer.jsx";
 
 function Layout({children}) {
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <Navbar/>
-            <div className="text-center justify-center items-center flex">
+            <div className="bg-cover bg-center flex items-center justify-center text-white text-center bg-[url(/home_1.jpg)] text-center justify-center items-center flex flex-grow">
                 {children}
             </div>
+            <Footer/>
         </div>
     );
 }
