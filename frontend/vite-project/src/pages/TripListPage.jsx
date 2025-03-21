@@ -35,7 +35,7 @@ export default function TripListPage() {
             <h2 className="justify-start">Trips</h2>
             {trips.length > 0 && trips.map((trip) => (
                 <div key={trip.tripId}>
-                    <h2 onClick={() => handleClick(trip.tripId)}><strong>{trip.name}</strong></h2>
+                    <button className="link link-hover" onClick={() => handleClick(trip.tripId)}><strong>{trip.name}</strong></button>
                     <div>Start: {trip.startDate}</div>
                     <div>End: {trip.endDate}</div>
                 </div>

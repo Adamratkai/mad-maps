@@ -54,7 +54,7 @@ function TripPage() {
     }, []);
 
     return (
-        <div className="flex flex-col h-screen p-4">
+        <div className="flex flex-col p-4">
         <div className="flex flex-grow justify-center gap-4 mb-4">
                 <GoogleMapComponent onLocationChange={handleLocationChange}/>
             {activities &&

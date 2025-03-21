@@ -17,7 +17,7 @@ function TripActivity({ tripActivity: { placeDTO: { name, rating, priceLevel, op
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {name}
-                <span className={`transition-transform ${isOpen ? "rotate-180" : ""}`}>▼</span>
+                <span className={`transition-transform duration-1000 ${isOpen ? "rotate-180" : ""}`}>▼</span>
             </button>
             {isOpen && (
                 <div className="p-2 bg-base-100 rounded-md mt-2 shadow-inner">

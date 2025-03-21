@@ -35,7 +35,7 @@ const GoogleMapComponent = ({onLocationChange}) => {
         return (<div>Loading...</div>)
     }
     return (
-        <div className="flex flex-col h-screen p-4">
+        <div className="flex flex-col p-4">
             <div >
                 <SearchBarComponent onPlacesChanged={onPlacesChanged}/>
             </div>

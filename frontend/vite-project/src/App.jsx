@@ -15,7 +15,7 @@ function Layout({children}) {
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar/>
-            <div className="w-screen h-screen bg-cover bg-center flex items-center justify-center text-white text-center bg-[url(/home_1.jpg)] text-center justify-center items-center flex flex-grow">
+            <div className="bg-cover bg-center flex items-center justify-center text-white text-center bg-[url(/home_1.jpg)] text-center justify-center items-center flex flex-grow">
                 {children}
             </div>
             <Footer/>

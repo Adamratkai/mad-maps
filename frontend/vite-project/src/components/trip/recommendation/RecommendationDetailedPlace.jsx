@@ -48,9 +48,9 @@ function RecommendationDetailedPlace({placeId, onPlaceClose, onAddPlace}) {
                             <PhotosSlideShow photos={place.photos}></PhotosSlideShow>
                         </figure>
                         <div className="card-body">
-                            <p className="card-title">{place.name}</p>
+                            <p className="card-title justify-center">{place.name}</p>
                             <p>Price: {"$".repeat(Math.max(1, Math.floor(place.priceLevel)))}</p>
-                            <div className="rating">
+                            <div className="rating justify-center">
                                 {[...Array(MAX_RATING)].map((_, index) => (
                                     <div
                                         key={index}

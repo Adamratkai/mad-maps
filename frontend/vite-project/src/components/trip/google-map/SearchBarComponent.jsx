@@ -17,8 +17,10 @@ const SearchBarComponent = ({ onPlacesChanged }) => {
             width: "100%",
             padding: "10px",
             fontSize: "16px",
-            border: "1px solid #ccc",
+            border: "1px solid white",
             borderRadius: "5px",
+              backgroundColor: "#3E9DE151",
+
           }}
         />
       </StandaloneSearchBox>
