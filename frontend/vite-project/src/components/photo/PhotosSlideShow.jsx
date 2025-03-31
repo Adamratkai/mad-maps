@@ -1,27 +1,50 @@
-function PhotosSlideShow({photos}) {
-    return (
-        <div className="carousel max-h-52">
-            {photos.map((photo, index) => {
-                const prevSlide = index === 0 ? photos.length - 1 : index - 1;
-                const nextSlide = index === photos.length - 1 ? 0 : index + 1;
+import { useState } from "react";
 
-                return (
-                    <div key={photo} id={"slide" + index} className="carousel-item relative w-full">
-                        <img src={"/api/photos/" + photo}
-                             alt="Photo"
-                             className="w-full h-auto max-w-full max-h-full object-contain"/>
-                        <div
-                            className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                            <a href={`#slide${prevSlide}`} className="btn btn-circle bg-base-200/75">
-                                ❮
-                            </a>
-                            <a href={`#slide${nextSlide}`} className="btn btn-circle bg-base-200/75">
-                                ❯
-                            </a>
-                        </div>
+function PhotosSlideShow({ photos }) {
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    const prevSlide = () => {
+        setCurrentSlide((currentSlide) =>
+            currentSlide === 0 ? photos.length - 1 : currentSlide - 1
+        );
+    };
+
+    const nextSlide = () => {
+        setCurrentSlide((currentSlide) =>
+            currentSlide === photos.length - 1 ? 0 : currentSlide + 1
+        );
+    };
+
+    return (
+        <div className="relative w-full h-52 overflow-hidden">
+            {photos.map((photo, index) => (
+                <div
+                    key={photo + index}
+                    className={`absolute inset-0 w-full transition-opacity duration-500 ${
+                        index === currentSlide ? "opacity-100" : "opacity-0"
+                    }`}
+                >
+                    <img
+                        src={`/api/photos/${photo}`}
+                        alt="Photo"
+                        className="mx-auto h-full w-auto object-contain"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-between px-5">
+                        <button
+                            onClick={prevSlide}
+                            className="btn btn-circle bg-base-200/75"
+                        >
+                            ❮
+                        </button>
+                        <button
+                            onClick={nextSlide}
+                            className="btn btn-circle bg-base-200/75"
+                        >
+                            ❯
+                        </button>
                     </div>
-                );
-            })}
+                </div>
+            ))}
         </div>
     );
 }
