@@ -16,34 +16,32 @@ function PhotosSlideShow({ photos }) {
     };
 
     return (
-        <div className="relative w-full max-h-52">
+        <div className="relative w-full h-52 overflow-hidden">
             {photos.map((photo, index) => (
                 <div
                     key={photo + index}
-                    className={`carousel-item relative w-full ${
-                        index === currentSlide ? "block" : "hidden"
+                    className={`absolute inset-0 w-full transition-opacity duration-500 ${
+                        index === currentSlide ? "opacity-100" : "opacity-0"
                     }`}
                 >
-                    <div className="relative w-full">
-                        <img
-                            src={`/api/photos/${photo}`}
-                            alt="Photo"
-                            className="mx-auto w-auto max-h-52 h-auto max-w-full object-contain"
-                        />
-                        <div className="absolute inset-0 flex items-center justify-between px-5">
-                            <button
-                                onClick={prevSlide}
-                                className="btn btn-circle bg-base-200/75"
-                            >
-                                ❮
-                            </button>
-                            <button
-                                onClick={nextSlide}
-                                className="btn btn-circle bg-base-200/75"
-                            >
-                                ❯
-                            </button>
-                        </div>
+                    <img
+                        src={`/api/photos/${photo}`}
+                        alt="Photo"
+                        className="mx-auto h-full w-auto object-contain"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-between px-5">
+                        <button
+                            onClick={prevSlide}
+                            className="btn btn-circle bg-base-200/75"
+                        >
+                            ❮
+                        </button>
+                        <button
+                            onClick={nextSlide}
+                            className="btn btn-circle bg-base-200/75"
+                        >
+                            ❯
+                        </button>
                     </div>
                 </div>
             ))}
