@@ -31,6 +31,11 @@ public class TripController {
         return tripService.getTrips();
     }
 
+    @GetMapping("/traveller")
+    public List<TripDTO> getTripsByTraveller() {
+        return tripService.getTripsByTraveller();
+    }
+
     @GetMapping("/{tripId}")
     public TripDetailsDTO getTripById(@PathVariable UUID tripId) {
         return tripService.getTripById(tripId);
