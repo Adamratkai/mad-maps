@@ -101,4 +101,10 @@ public class TripService {
                 place.getPhotos().stream().map(Photo::getPhotoId).collect(Collectors.toList()));
         return new TripActivityDTO(placeDTO, tripActivity.getVisitTime());
     }
+
+    public List<TripDTO> getTripsByTraveller() {
+        Traveller traveller = this.travellerService.getAuthenticatedUser();
+        List<Trip> trips = this.tripRepository.findByTraveller(traveller);
+        return trips.stream().map(this::convertTripToTripDTO).collect(Collectors.toList());
     }
+}
