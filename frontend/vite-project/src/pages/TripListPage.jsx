@@ -15,7 +15,7 @@ export default function TripListPage() {
 
     async function fetchTrips(){
         try {
-            const response = await axiosInstance.get("api/trips/");
+            const response = await axiosInstance.get("api/trips/traveller");
             setTrips(response.data);
         } catch (error) {
             console.error("Error fetching trips:", error);
