@@ -21,7 +21,8 @@ function TripActivity({ tripActivity: { placeDTO: { name, rating, priceLevel, op
             </button>
             {isOpen && (
                 <div className="p-2 bg-base-100 rounded-md mt-2 shadow-inner">
-                    <p className="text-lg font-bold text-gray-600">Visit Time: {formatDateISO(visitTime)}</p>
+                    {<p className="text-lg font-bold text-gray-600">Visit Time: {formatDateISO(visitTime)}</p>
+                        }
                     <p className="text-m">{"$".repeat(Math.max(1, Math.floor(priceLevel)))}</p>
                     <div className="flex items-center gap-1">
                         {[...Array(MAX_RATING)].map((_, index) => (

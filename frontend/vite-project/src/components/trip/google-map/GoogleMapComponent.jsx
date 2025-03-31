@@ -15,7 +15,6 @@ const GoogleMapComponent = ({onLocationChange}) => {
     });
     const onPlacesChanged = (searchBox) => {
         if (!searchBox) return;
-
         const places = searchBox.getPlaces();
         if (!places.length) return;
         const targetPlaceLocation = places[0].geometry.location;

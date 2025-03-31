@@ -11,7 +11,6 @@ const MapComponent = ({ markerPosition, onClick}) => {
     const [map, setMap] = useState(null);
     
     return (
-
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={markerPosition || defaultCenter}
