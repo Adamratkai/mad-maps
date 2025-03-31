@@ -19,12 +19,11 @@ function TripPage() {
 
     async function handleAddPlace(place) {
         try {
-            console.log(place);
             const response = await axiosInstance.post(`/api/trip-activities/${tripId}`, {
                 placeId: place.placeId,
                 visitTime: tripDetail.startDate + "T00:00:00",
             });
-            setActivities((prev) => [...prev, {placeDTO: place, visitTime: tripDetail.visitTime}]);
+            setActivities((prev) => [...prev, {placeDTO: place, visitTime: (tripDetail.startDate + "T00:00:00")}]);
             return response.data;
         } catch (error) {
             console.error("Error fetching places:", error);
