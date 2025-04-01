@@ -5,6 +5,7 @@ import com.codecool.madmaps.DTO.Place.PlaceCreateDTO;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
 import com.codecool.madmaps.DTO.Recommendation.DetailedPlaceDTO;
 import com.codecool.madmaps.DTO.Recommendation.DetailedPlaceResultDTO;
+import com.codecool.madmaps.DTO.Recommendation.Location;
 import com.codecool.madmaps.DTO.Recommendation.PlacePhotoDTO;
 import com.codecool.madmaps.model.Photo.Photo;
 import com.codecool.madmaps.model.Place.Place;
@@ -12,6 +13,8 @@ import com.codecool.madmaps.model.PlaceType.PlaceType;
 import com.codecool.madmaps.repository.PhotoRepository;
 import com.codecool.madmaps.repository.PlaceRepository;
 import com.codecool.madmaps.repository.PlaceTypeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -28,6 +31,7 @@ public class PlaceService {
     private final RestTemplate restTemplate;
     @Value("${google.maps.api.key}")
     private String googleMapsApiKey;
+    private Logger log = LoggerFactory.getLogger(PlaceService.class);
 
     public PlaceService(PlaceRepository placeRepository, PlaceTypeRepository placeTypeRepository, PhotoRepository photoRepository, RestTemplate restTemplate) {
         this.placeRepository = placeRepository;
@@ -44,28 +48,33 @@ public class PlaceService {
                 place.getRating(),
                 place.getPriceLevel(),
                 place.getOpeningHours(),
-                getIdsFromPhotos(place.getPhotos()))).collect(Collectors.toList());
+                getIdsFromPhotos(place.getPhotos()),
+                new Location(place.getLatitude(), place.getLongitude()))).collect(Collectors.toList());
     }
 
     public PlaceDTO getPlaceById(String placeId) {
        Place place = findOrCreatePlace(placeId);
+       Location location = new Location(place.getLatitude(), place.getLongitude());
         return new PlaceDTO(
                 place.getPlaceId(),
                 place.getName(),
                 place.getRating(),
                 place.getPriceLevel(),
                 place.getOpeningHours(),
-                getIdsFromPhotos(place.getPhotos()));
+                getIdsFromPhotos(place.getPhotos()),
+                location);
     }
 
     public PlaceDTO createAndGetPlaceDTO(PlaceCreateDTO placeCreateDTO) {
         Place newPlace = createPlace(placeCreateDTO);
+        Location location = new Location(newPlace.getLatitude(), newPlace.getLongitude());
         return new PlaceDTO(newPlace.getPlaceId(),
                 newPlace.getName(),
                 newPlace.getRating(),
                 newPlace.getPriceLevel(),
                 newPlace.getOpeningHours(),
-                getIdsFromPhotos(newPlace.getPhotos()));
+                getIdsFromPhotos(newPlace.getPhotos()),
+                location);
     }
 
     private Place createPlace(PlaceCreateDTO placeCreateDTO) {
@@ -77,6 +86,8 @@ public class PlaceService {
         place.setRating(placeCreateDTO.rating());
         place.setPriceLevel(placeCreateDTO.priceLevel());
         place.setOpeningHours(placeCreateDTO.openingHours());
+        place.setLatitude(placeCreateDTO.latitude());
+        place.setLongitude(placeCreateDTO.longitude());
         Place savedPlace = this.placeRepository.save(place);
         List<Photo> savedPhotos = createPhotos(placeCreateDTO.photoReferences(), savedPlace);
         savedPlace.setPhotos(savedPhotos);
@@ -93,11 +104,12 @@ public class PlaceService {
 
     public Place findOrCreatePlace(String placeId) {
         return this.placeRepository.findByPlaceId(placeId).orElseGet(() -> {
-            String fields = "name,place_id,rating,price_level,photos,opening_hours/weekday_text,types";
+            String fields = "name,place_id,rating,price_level,photos,opening_hours/weekday_text,types,geometry/location";
             String url = String.format("https://maps.googleapis.com/maps/api/place/details/json?fields=%s&place_id=%s&key=%s",
                     fields, placeId, googleMapsApiKey);
             DetailedPlaceResultDTO response = restTemplate.getForObject(url, DetailedPlaceResultDTO.class);
             DetailedPlaceDTO detailedPlace = response.result();
+            log.info(detailedPlace.toString());
             List<String> references = detailedPlace.photos().stream().map(PlacePhotoDTO::photo_reference).toList();
             PlaceCreateDTO placeCreateDTO = new PlaceCreateDTO(
                     detailedPlace.place_id(),
@@ -106,7 +118,9 @@ public class PlaceService {
                     detailedPlace.rating(),
                     detailedPlace.price_level(),
                     detailedPlace.opening_hours().weekday_text(),
-                    references
+                    references,
+                    detailedPlace.geometry().location().lat(),
+                    detailedPlace.geometry().location().lng()
             );
            return createPlace(placeCreateDTO);
         });

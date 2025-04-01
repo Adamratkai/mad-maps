@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import useAxios from "../../useAxios.js";
 import PhotosSlideShow from "../../photo/PhotosSlideShow";
+import {useMarkers} from "../../MarkersContext.jsx";
 
 const MAX_RATING = 5;
 
@@ -8,6 +9,7 @@ function RecommendationDetailedPlace({placeId, onPlaceClose, onAddPlace}) {
     const [place, setPlace] = useState(null);
     const modalRef = useRef(null);
     const axiosInstance = useAxios();
+    const {setMarkers} = useMarkers()
     useEffect(() => {
         const abortController = new AbortController();
 
@@ -31,6 +33,7 @@ function RecommendationDetailedPlace({placeId, onPlaceClose, onAddPlace}) {
     function handleAddPlace() {
         onPlaceClose();
         onAddPlace(place);
+        setMarkers(prev => [...prev, place.location]);
     }
 
     function closeModal(e) {

@@ -2,6 +2,7 @@ package com.codecool.madmaps.service;
 
 
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
+import com.codecool.madmaps.DTO.Recommendation.Location;
 import com.codecool.madmaps.DTO.Trip.*;
 import com.codecool.madmaps.model.Photo.Photo;
 import com.codecool.madmaps.model.Place.Place;
@@ -97,8 +98,10 @@ public class TripService {
 
     private TripActivityDTO convertTripActivityToTripActivityDTO(TripActivity tripActivity) {
         Place place = tripActivity.getPlace();
+        Location location = new Location(place.getLatitude(), place.getLongitude());
         PlaceDTO placeDTO = new PlaceDTO(place.getPlaceId(), place.getName(), place.getRating(), place.getPriceLevel(), place.getOpeningHours(),
-                place.getPhotos().stream().map(Photo::getPhotoId).collect(Collectors.toList()));
+                place.getPhotos().stream().map(Photo::getPhotoId).collect(Collectors.toList()),
+                location);
         return new TripActivityDTO(placeDTO, tripActivity.getVisitTime());
     }
 

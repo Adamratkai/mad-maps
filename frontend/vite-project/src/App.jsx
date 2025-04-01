@@ -10,6 +10,7 @@ import {useContext} from "react";
 import {AuthContext, AuthProvider} from "./components/AuthProvider.jsx";
 import TripListPage from "./pages/TripListPage.jsx";
 import Footer from "./components/Footer.jsx";
+import {MarkersProvider} from "./components/MarkersContext.jsx";
 
 function Layout({children}) {
     return (
@@ -33,7 +34,7 @@ const ProtectedRoute = ({children}) => {
 }
 const router = createBrowserRouter([
     {path: "/", element: <Layout><HomePage/></Layout>},
-    {path: "/trip-editor/:tripId", element: <ProtectedRoute><Layout><TripPage/></Layout></ProtectedRoute>},
+    {path: "/trip-editor/:tripId", element: <ProtectedRoute><Layout><MarkersProvider><TripPage/></MarkersProvider></Layout></ProtectedRoute>},
     {path: "/trip-list", element: <ProtectedRoute><Layout><TripListPage/></Layout></ProtectedRoute>},
     {path: "*", element: <ErrorPage/>},
     {path: "/login", element: <Layout><LoginPage/></Layout>},
