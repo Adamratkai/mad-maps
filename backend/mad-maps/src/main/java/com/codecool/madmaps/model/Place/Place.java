@@ -50,6 +50,10 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Photo> photos;
 
+    private double latitude;
+
+    private double longitude;
+
     @Transient
     public double calculateScore() {
         //TODO
