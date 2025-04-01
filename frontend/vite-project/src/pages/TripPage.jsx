@@ -9,6 +9,7 @@ function TripPage() {
     const [location, setLocation] = useState(null);
     const [tripDetail, setTripDetail] = useState(null);
     const [activities, setActivities] = useState(null);
+    const [placeType, setPlaceType] = useState(null);
     const {tripId} = useParams();
     const axiosInstance = useAxios();
 
@@ -27,6 +28,10 @@ function TripPage() {
         } catch (error) {
             console.error("Error fetching places:", error);
         }
+    }
+
+    function handleSelectPlaceType(type) {
+        setPlaceType(type);
     }
 
     useEffect(() => {
@@ -54,13 +59,13 @@ function TripPage() {
     return (
         <div className="flex flex-col p-4">
         <div className="flex flex-grow justify-center gap-4 mb-4">
-                <GoogleMapComponent onLocationChange={handleLocationChange}/>
+                <GoogleMapComponent onLocationChange={handleLocationChange} onTypeSelect={handleSelectPlaceType} />
             {activities &&
                 <TripDetails tripDetail={tripDetail} activities={activities}/>
             }</div>
             {location &&
                 <div className="flex justify-center mt-4 max-w-[80vw] overflow-y-auto px-4 box-border">
-                    <Recommendation location={location} onAddPlace={handleAddPlace}/>
+                    <Recommendation location={location} onAddPlace={handleAddPlace} placeType={placeType}/>
                 </div>
             }
         </div>

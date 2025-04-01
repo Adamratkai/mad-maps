@@ -3,7 +3,7 @@ import RecommendedPlace from "./RecommendedPlace.jsx";
 import RecommendationDetailedPlace from "./RecommendationDetailedPlace.jsx";
 import useAxios from "../../useAxios.js";
 
-function Recommendation({location, onAddPlace}) {
+function Recommendation({location, onAddPlace, placeType}) {
   const [recommendations, setRecommendations] = useState([]);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
   const axiosInstance = useAxios();
@@ -16,7 +16,7 @@ function Recommendation({location, onAddPlace}) {
         const response = await axiosInstance.get(`/api/recommendations/`, {
           params: {
             location: `${location.lat},${location.lng}`,
-            type: "restaurant",
+            type: placeType,
           },
           signal: abortController.signal,
         });

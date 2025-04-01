@@ -2,11 +2,12 @@ import {useState} from "react";
 import {useJsApiLoader} from "@react-google-maps/api";
 import MapComponent from "./MapComponent.jsx";
 import SearchBarComponent from "./SearchBarComponent.jsx";
+import PlaceTypeSelector from "../select-place-type/PlaceTypeSelector.jsx";
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const googlaMapsLibrary = ["places"]
 
-const GoogleMapComponent = ({onLocationChange}) => {
+const GoogleMapComponent = ({onLocationChange, onTypeSelect}) => {
     const [markerPosition, setMarkerPosition] = useState(null);
     const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
@@ -34,9 +35,12 @@ const GoogleMapComponent = ({onLocationChange}) => {
         return (<div>Loading...</div>)
     }
     return (
-        <div className="flex flex-col p-4">
+        <div className="flex flex-col gap-4 p-4">
             <div >
                 <SearchBarComponent onPlacesChanged={onPlacesChanged}/>
+            </div>
+            <div>
+                <PlaceTypeSelector onSelect={onTypeSelect} />
             </div>
             <div className="flex-grow flex items-center justify-center">
                 <MapComponent markerPosition={markerPosition} onClick={onMapClick}/>
