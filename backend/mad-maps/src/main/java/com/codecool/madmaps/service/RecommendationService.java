@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,10 +23,9 @@ public class RecommendationService {
 
     public List<RecommendationDTO> getRecommendations(String location, String type) {
         String radius = "500";
-        int maxResults = 5;
         String url = String.format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%s&type=%s&rankby=prominence&key=%s", location, radius, type, googleMapsApiKey);
         RecommendationResultDTO response = restTemplate.getForObject(url, RecommendationResultDTO.class);
-        return response.results().stream().limit(maxResults).collect(Collectors.toList());
+        return new ArrayList<>(response.results());
     }
 
 }

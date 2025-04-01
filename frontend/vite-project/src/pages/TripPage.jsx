@@ -1,5 +1,4 @@
 import GoogleMapComponent from '../components/trip/google-map/GoogleMapComponent.jsx'
-import TripListPage from "./TripListPage.jsx";
 import Recommendation from "../components/trip/recommendation/Recommendation.jsx";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
@@ -60,7 +59,7 @@ function TripPage() {
                 <TripDetails tripDetail={tripDetail} activities={activities}/>
             }</div>
             {location &&
-                <div className="flex justify-center mt-4">
+                <div className="flex justify-center mt-4 max-w-[80vw] overflow-y-auto px-4 box-border">
                     <Recommendation location={location} onAddPlace={handleAddPlace}/>
                 </div>
             }
