@@ -1,5 +1,6 @@
 import { GoogleMap, Marker } from '@react-google-maps/api';
 import React, { useState } from 'react'
+import {useMarkers} from "../../MarkersContext.jsx";
 
 const containerStyle = {
     width: "400px",
@@ -9,6 +10,9 @@ const defaultCenter = { lat: -33.8688, lng: 151.2195 };
 
 const MapComponent = ({ markerPosition, onClick}) => {
     const [map, setMap] = useState(null);
+    const {markers} = useMarkers()
+
+
     
     return (
       <GoogleMap
@@ -19,6 +23,7 @@ const MapComponent = ({ markerPosition, onClick}) => {
         onClick={(event)=>onClick(event,map)}
       >
         {markerPosition && <Marker position={markerPosition} />}
+          {markers && markers.map((markerPos, index) => (<Marker key={index} position={markerPos}/>))}
       </GoogleMap>
     );
   };
