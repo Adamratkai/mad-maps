@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import useAxios from "../components/useAxios.js";
 import TripDetails from "../components/trip/trip-details/TripDetails.jsx";
+import {useMarkers} from "../components/MarkersContext.jsx";
 
 function TripPage() {
     const [location, setLocation] = useState(null);
@@ -12,6 +13,7 @@ function TripPage() {
     const [placeType, setPlaceType] = useState(null);
     const {tripId} = useParams();
     const axiosInstance = useAxios();
+    const {setMarkers} = useMarkers();
 
     function handleLocationChange(location) {
         setLocation(location);
@@ -45,6 +47,9 @@ function TripPage() {
                 });
                 setTripDetail(response.data);
                 setActivities(response.data.tripActivities);
+                response.data.tripActivities.map(activity => {
+                    setMarkers(prev => [...prev, activity.placeDTO.location]);
+                })
             } catch (error) {
                 console.error("Error fetching places:", error);
             }
