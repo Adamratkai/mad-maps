@@ -2,10 +2,7 @@ package com.codecool.madmaps.service;
 
 import com.codecool.madmaps.DTO.Place.PlaceCreateDTO;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
-import com.codecool.madmaps.DTO.Recommendation.DetailedPlaceDTO;
-import com.codecool.madmaps.DTO.Recommendation.DetailedPlaceResultDTO;
-import com.codecool.madmaps.DTO.Recommendation.PlaceOpeningHours;
-import com.codecool.madmaps.DTO.Recommendation.PlacePhotoDTO;
+import com.codecool.madmaps.DTO.Recommendation.*;
 import com.codecool.madmaps.model.Photo.Photo;
 import com.codecool.madmaps.model.Place.Place;
 import com.codecool.madmaps.model.PlaceType.PlaceType;
@@ -117,7 +114,7 @@ class PlaceServiceTest {
         String placeId = "123";
         when(placeRepository.findByPlaceId(placeId)).thenReturn(Optional.empty());
 
-        String fields = "name,place_id,rating,price_level,photos,opening_hours/weekday_text,types";
+        String fields = "name,place_id,rating,price_level,photos,opening_hours/weekday_text,types,geometry/location";
         String url = String.format("https://maps.googleapis.com/maps/api/place/details/json?fields=%s&place_id=%s&key=%s",
                 fields, placeId, "test-key");
         when(restTemplate.getForObject(eq(url), eq(DetailedPlaceResultDTO.class)))
@@ -135,7 +132,9 @@ class PlaceServiceTest {
                 4.5,
                 2,
                 List.of("Mon 9-5"),
-                List.of("ref1", "ref2", "ref3")
+                List.of("ref1", "ref2", "ref3"),
+                33.15,
+                25.15
         );
         Place savedPlace = new Place();
         savedPlace.setPlaceId("place123");
@@ -171,7 +170,9 @@ class PlaceServiceTest {
                 4.5,
                 2,
                 List.of("Mon 9-5"),
-                List.of("ref1")
+                List.of("ref1"),
+                33.15,
+                25.15
         );
         when(placeRepository.save(any(Place.class))).thenThrow(new DataAccessException("DB error") {});
 
@@ -256,7 +257,9 @@ class PlaceServiceTest {
                 4.5,
                 2,
                 List.of("Mon 9-5"),
-                List.of("ref1", "ref2")
+                List.of("ref1", "ref2"),
+                33.15,
+                25.15
         );
         Place savedPlace = new Place();
         when(placeRepository.save(any())).thenReturn(savedPlace);
@@ -277,7 +280,9 @@ class PlaceServiceTest {
                 4.5,
                 2,
                 List.of("Mon 9-5"),
-                List.of()
+                List.of(),
+                33.15,
+                25.15
         );
         Place savedPlace = new Place();
         when(placeRepository.save(any())).thenReturn(savedPlace);
@@ -297,7 +302,9 @@ class PlaceServiceTest {
                 4.5,
                 2,
                 List.of("Mon 9-5"),
-                List.of("ref1")
+                List.of("ref1"),
+                33.15,
+                25.15
         );
         when(restTemplate.getForObject(anyString(), eq(byte[].class)))
                 .thenThrow(new RestClientException("Photo fetch failed"));
@@ -317,7 +324,8 @@ class PlaceServiceTest {
                 "place123",
                 List.of(),
                 List.of("type1"),
-                new PlaceOpeningHours(List.of("Mon 9-5"))
+                new PlaceOpeningHours(List.of("Mon 9-5")),
+                new Geometry(new Location(33.15,25.15))
         );
         DetailedPlaceResultDTO response = new DetailedPlaceResultDTO(detailedPlace);
         when(restTemplate.getForObject(anyString(), eq(DetailedPlaceResultDTO.class)))
@@ -353,7 +361,8 @@ class PlaceServiceTest {
                 "place123",
                 List.of(new PlacePhotoDTO("ref1", "100", "200")),
                 List.of("type1"),
-                null
+                null,
+                new Geometry(new Location(33.15,25.15))
         );
         DetailedPlaceResultDTO response = new DetailedPlaceResultDTO(detailedPlace);
         when(restTemplate.getForObject(anyString(), eq(DetailedPlaceResultDTO.class)))
@@ -374,7 +383,8 @@ class PlaceServiceTest {
                 "place123",
                 List.of(new PlacePhotoDTO("ref1", "100", "200")),
                 null,
-                new PlaceOpeningHours(List.of("Mon 9-5"))
+                new PlaceOpeningHours(List.of("Mon 9-5")),
+                new Geometry(new Location(33.15,25.15))
         );
         DetailedPlaceResultDTO response = new DetailedPlaceResultDTO(detailedPlace);
         when(restTemplate.getForObject(anyString(), eq(DetailedPlaceResultDTO.class)))
@@ -392,7 +402,9 @@ class PlaceServiceTest {
                 4.5,
                 2,
                 List.of("Mon 9-5"),
-                List.of("ref1", "ref2", "ref3")
+                List.of("ref1", "ref2", "ref3"),
+                33.15,
+                25.15
         );
         Place savedPlace = new Place();
         when(placeRepository.save(any())).thenReturn(savedPlace);
