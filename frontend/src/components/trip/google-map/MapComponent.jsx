@@ -8,6 +8,15 @@ const containerStyle = {
   };
 const defaultCenter = { lat: -33.8688, lng: 151.2195 };
 
+const customIcon = {
+    url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+};
+
+const selectedIcon = {
+    url: "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
+}
+
+
 const MapComponent = ({ markerPosition, onClick}) => {
     const [map, setMap] = useState(null);
     const {markers} = useMarkers()
@@ -23,7 +32,7 @@ const MapComponent = ({ markerPosition, onClick}) => {
         onClick={(event)=>onClick(event,map)}
       >
         {markerPosition && <Marker position={markerPosition} />}
-          {markers && markers.map((markerPos, index) => (<Marker key={index} position={markerPos}/>))}
+          {markers && markers.map((markerPos, index) => (<Marker key={index} position={{lat: markerPos.lat, lng: markerPos.lng}} icon={markerPos.selected ? selectedIcon : customIcon} />))}
       </GoogleMap>
     );
   };

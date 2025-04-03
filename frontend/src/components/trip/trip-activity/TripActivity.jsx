@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import PhotosSlideShow from "../../photo/PhotosSlideShow.jsx";
+import {MarkersContext} from "../../MarkersContext.jsx";
 
 const MAX_RATING = 5;
 
-function TripActivity({ tripActivity: { placeDTO: { name, rating, priceLevel, openingHours, photos}, visitTime } }) {
+function TripActivity({ tripActivity: { placeDTO: { name, rating, priceLevel, openingHours, photos, location}, visitTime } }) {
     const [isOpen, setIsOpen] = useState(false);
+    const { markers,setMarkers } = useContext(MarkersContext);
 
     function formatDateISO(date) {
         return date.split("T")[0];
+    }
+
+    function handleTripActivitySelect() {
+        setIsOpen(!isOpen)
+        if (!isOpen) {
+            setMarkers(markers => [...markers.filter((marker) => marker.lat !== location.lat && marker.lng !== location.lng), {lat: location.lat, lng: location.lng, selected: true}]);
+        } else {
+            setMarkers(markers => markers.map((marker) => {
+                marker.selected = false;
+                return marker;
+            }));
+        }
+        console.log(markers);
     }
 
     return (
         <div className="border rounded-lg shadow-sm p-2 bg-base-200">
             <button
                 className="w-full text-left font-semibold flex justify-between items-center p-2"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={handleTripActivitySelect}
             >
                 {name}
                 <span className={`transition-transform duration-1000 ${isOpen ? "rotate-180" : ""}`}>▼</span>

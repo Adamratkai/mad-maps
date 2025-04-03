@@ -48,7 +48,7 @@ function TripPage() {
                 setTripDetail(response.data);
                 setActivities(response.data.tripActivities);
                 response.data.tripActivities.map(activity => {
-                    setMarkers(prev => [...prev, activity.placeDTO.location]);
+                    setMarkers(prev => [...prev, {lat: activity.placeDTO.location.lat, lng: activity.placeDTO.location.lng, selected: false}]);
                 })
             } catch (error) {
                 console.error("Error fetching places:", error);
