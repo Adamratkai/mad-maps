@@ -42,4 +42,5 @@ jobs:
           docker info
 
       - name: Run Maven tests
+        working-directory: backend/mad-maps
         run: mvn clean verify
