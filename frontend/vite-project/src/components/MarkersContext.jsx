@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from "react";
 
-export const MarkersContext = createContext(); // ✅ Define the context once
+export const MarkersContext = createContext();
 
-export const MarkersProvider = ({ children }) => { // ✅ Correct provider name
+export const MarkersProvider = ({ children }) => {
     const [markers, setMarkers] = useState([]);
 
     return (

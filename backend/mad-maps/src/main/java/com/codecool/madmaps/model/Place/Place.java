@@ -42,7 +42,6 @@ public class Place {
 
     private int priceLevel;
 
-
     @Type(JsonType.class)
     @Column(columnDefinition = "jsonb")
     private List<String> openingHours;

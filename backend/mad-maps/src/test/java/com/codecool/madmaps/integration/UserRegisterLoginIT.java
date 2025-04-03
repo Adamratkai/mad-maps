@@ -118,14 +118,14 @@ public class UserRegisterLoginIT {
         createTestUser();
         String token = authenticateAndGetToken();
 
-        mockMvc.perform(get("/api/trips/") // Replace with actual protected endpoint
+        mockMvc.perform(get("/api/trips/")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testAccessProtectedEndpointWithoutTokenReturnsUnauthorized() throws Exception {
-        mockMvc.perform(get("/api/trips/")) // Replace with actual protected endpoint
+        mockMvc.perform(get("/api/trips/"))
                 .andExpect(status().isUnauthorized());
     }
 
