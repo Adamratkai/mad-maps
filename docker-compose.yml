@@ -32,7 +32,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend/vite-project
+      context: ./frontend
       dockerfile: Dockerfile
     container_name: mad_maps-frontend
     restart: always
