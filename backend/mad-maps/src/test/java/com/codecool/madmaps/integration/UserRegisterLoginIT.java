@@ -49,12 +49,6 @@ public class UserRegisterLoginIT {
             .withUsername("testUser")
             .withPassword("testPassword");
 
-    @BeforeAll
-    static void loadEnvVariables() {
-        Dotenv dotenv = Dotenv.load();
-        System.setProperty("JWT_SECRET", dotenv.get("JWT_SECRET"));
-        System.setProperty("API_KEY", dotenv.get("API_KEY"));
-    }
     private final String TEST_EMAIL = "test@example.com";
     private final String TEST_PASSWORD = "password123";
     private final String TEST_USERNAME = "testUser";
