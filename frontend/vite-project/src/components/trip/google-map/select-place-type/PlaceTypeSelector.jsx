@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { googlePlaceTypes } from "../../../resources/googlePlaceTypes.js";
+import { googlePlaceTypes } from "../../../../resources/googlePlaceTypes.js";
 
 function formatPlaceType(placeType) {
     return placeType.replace(/_/g, " ");
