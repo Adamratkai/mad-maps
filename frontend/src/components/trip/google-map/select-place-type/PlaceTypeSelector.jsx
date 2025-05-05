@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from "react";
-import { googlePlaceTypes } from "../../../../resources/googlePlaceTypes.js";
+import {useEffect, useRef, useState} from "react";
+import {googlePlaceTypes} from "../../../../resources/googlePlaceTypes.js";
 
 function formatPlaceType(placeType) {
     return placeType.replace(/_/g, " ");
 }
 
-function PlaceTypeSelector({ onSelect }) {
+function PlaceTypeSelector({onSelect}) {
     const [query, setQuery] = useState("restaurant");
     const [filteredOptions, setFilteredOptions] = useState([]);
     const inputRef = useRef(null);
