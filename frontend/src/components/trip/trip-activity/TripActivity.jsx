@@ -1,12 +1,17 @@
-import React, {useContext, useState} from "react";
+import {useContext, useState} from "react";
 import PhotosSlideShow from "../../photo/PhotosSlideShow.jsx";
 import {MarkersContext} from "../../MarkersContext.jsx";
 
 const MAX_RATING = 5;
 
-function TripActivity({ tripActivity: { placeDTO: { name, rating, priceLevel, openingHours, photos, location}, visitTime } }) {
+function TripActivity({
+                          tripActivity: {
+                              placeDTO: {name, rating, priceLevel, openingHours, photos, location},
+                              visitTime
+                          }
+                      }) {
     const [isOpen, setIsOpen] = useState(false);
-    const { markers,setMarkers } = useContext(MarkersContext);
+    const {setMarkers} = useContext(MarkersContext);
 
     function formatDateISO(date) {
         return date.split("T")[0];
@@ -15,14 +20,17 @@ function TripActivity({ tripActivity: { placeDTO: { name, rating, priceLevel, op
     function handleTripActivitySelect() {
         setIsOpen(!isOpen)
         if (!isOpen) {
-            setMarkers(markers => [...markers.filter((marker) => marker.lat !== location.lat && marker.lng !== location.lng), {lat: location.lat, lng: location.lng, selected: true}]);
+            setMarkers(markers => [...markers.filter((marker) => marker.lat !== location.lat && marker.lng !== location.lng), {
+                lat: location.lat,
+                lng: location.lng,
+                selected: true
+            }]);
         } else {
             setMarkers(markers => markers.map((marker) => {
                 marker.selected = false;
                 return marker;
             }));
         }
-        console.log(markers);
     }
 
     return (
@@ -37,7 +45,7 @@ function TripActivity({ tripActivity: { placeDTO: { name, rating, priceLevel, op
             {isOpen && (
                 <div className="p-2 bg-base-100 rounded-md mt-2 shadow-inner">
                     {<p className="text-lg font-bold text-gray-600">Visit Time: {formatDateISO(visitTime)}</p>
-                        }
+                    }
                     <p className="text-m">{"$".repeat(Math.max(1, Math.floor(priceLevel)))}</p>
                     <div className="flex items-center gap-1">
                         {[...Array(MAX_RATING)].map((_, index) => (
