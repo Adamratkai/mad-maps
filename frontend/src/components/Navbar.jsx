@@ -7,10 +7,10 @@ function Navbar() {
     return (
         <nav className="navbar bg-base-300 shadow-sm sticky top-0 z-50">
             <div className="navbar-start">
-                <Link onClick={()=> onPageChange()} to="/" className="btn btn-ghost text-xl">
+                <Link onClick={() => onPageChange()} to="/" className="btn btn-ghost text-xl">
                     Home
                 </Link>
-                <Link onClick={()=> onPageChange()} to="/trip-list" className="btn btn-ghost text-xl">
+                <Link onClick={() => onPageChange()} to="/trip-list" className="btn btn-ghost text-xl">
                     Trip
                 </Link>
             </div>
@@ -27,8 +27,8 @@ function Navbar() {
                     className="menu menu-md dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
 
                     {!isLoggedIn ? (<>
-                            <li><Link onClick={()=> onPageChange()} to="/login">Login</Link></li>
-                            <li><Link onClick={()=> onPageChange()} to="/register">Register</Link></li>
+                            <li><Link onClick={() => onPageChange()} to="/login">Login</Link></li>
+                            <li><Link onClick={() => onPageChange()} to="/register">Register</Link></li>
                         </>) :
                         (<li>
                             <button onClick={() => logout()}>Logout</button>
