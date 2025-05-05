@@ -5,14 +5,14 @@ import SearchBarComponent from "./SearchBarComponent.jsx";
 import PlaceTypeSelector from "./select-place-type/PlaceTypeSelector.jsx";
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-const googlaMapsLibrary = ["places"]
+const googleMapsLibrary = ["places"]
 
 const GoogleMapComponent = ({onLocationChange, onTypeSelect}) => {
     const [markerPosition, setMarkerPosition] = useState(null);
     const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: GOOGLE_MAPS_API_KEY,
-        libraries: googlaMapsLibrary,
+        libraries: googleMapsLibrary,
     });
     const onPlacesChanged = (searchBox) => {
         if (!searchBox) return;
@@ -36,11 +36,11 @@ const GoogleMapComponent = ({onLocationChange, onTypeSelect}) => {
     }
     return (
         <div className="flex flex-col gap-4 p-4">
-            <div >
+            <div>
                 <SearchBarComponent onPlacesChanged={onPlacesChanged}/>
             </div>
             <div>
-                <PlaceTypeSelector onSelect={onTypeSelect} />
+                <PlaceTypeSelector onSelect={onTypeSelect}/>
             </div>
             <div className="flex-grow flex items-center justify-center">
                 <MapComponent markerPosition={markerPosition} onClick={onMapClick}/>

@@ -2,7 +2,6 @@ package com.codecool.madmaps.DTO.Place;
 
 import com.codecool.madmaps.DTO.Recommendation.Location;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 

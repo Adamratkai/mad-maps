@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
-import useAxios from "../../useAxios.js";
+import {useEffect, useRef, useState} from "react";
+import useAxios from "../../../hooks/useAxios.js";
 import PhotosSlideShow from "../../photo/PhotosSlideShow";
 import {useMarkers} from "../../MarkersContext.jsx";
 

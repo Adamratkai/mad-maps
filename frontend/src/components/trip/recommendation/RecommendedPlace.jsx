@@ -1,7 +1,5 @@
-import React from "react";
-
 const MAX_RATING = 5;
-const RecommendedPlace = ({ name, price, rating, onPlaceClick }) => {
+const RecommendedPlace = ({name, price, rating, onPlaceClick}) => {
     return (
         <div className="card lg:card-side bg-base-200 shadow-sm w-[200px]  ">
             <div className="card-body">
@@ -23,7 +21,7 @@ const RecommendedPlace = ({ name, price, rating, onPlaceClick }) => {
                 </div>
             </div>
         </div>
-            );
+    );
 };
 
 export default RecommendedPlace;
