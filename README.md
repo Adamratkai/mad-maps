@@ -34,7 +34,9 @@ Looking for a simple way to plan your next trip?
 
 Mad-Maps is designed for performance, reliability, and ease of use—whether you're a casual traveler or an itinerary perfectionist.
 
+<p align="center">
 <img src="https://github.com/user-attachments/assets/69450345-fbf3-49f5-afc6-3d6b9e5c4eff" width="600" alt="Screenshot of Trip Planner"/> <br>
+</p>
 
 
 ## Built With
@@ -43,8 +45,8 @@ Mad-Maps is designed for performance, reliability, and ease of use—whether you
   [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
 
 - **Frontend:**  
-  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)  
-  [![NGINX](https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=white)](https://www.nginx.com/)
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)  <br>
+  [![NGINX](https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=white)](https://www.nginx.com/) <br>
   [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 - **Database:**  
@@ -139,12 +141,13 @@ To simplify setup, example `.env` files with the necessary **environment variabl
 5. **Manage Your Trip**
     - The places you’ve added to your trip will be displayed in the trip’s box in the order you added them.
     - You can expand each place to reveal its details again.
-
+<p align="center">
 <img src="https://github.com/user-attachments/assets/274732c7-69b9-4d1d-b806-e85ac5f04674" width="600" alt="Screenshot of Trip Planner" />
 
-<img src="https://github.com/user-attachments/assets/497353d9-3526-4493-8abe-7fb0c855458e" width="600" alt="Screenshot of Trip Planner" />
-
 <img src="https://github.com/user-attachments/assets/6218a2b9-0839-4c2e-8a80-35dc34e900c9" width="600" alt="Screenshot of Trip Planner"/>
+
+<img src="https://github.com/user-attachments/assets/497353d9-3526-4493-8abe-7fb0c855458e" width="600" alt="Screenshot of Trip Planner" />
+</p>
 
 ## Acknowledgements
 
