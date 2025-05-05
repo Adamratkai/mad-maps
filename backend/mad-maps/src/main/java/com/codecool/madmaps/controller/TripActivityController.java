@@ -1,7 +1,6 @@
 package com.codecool.madmaps.controller;
 
 import com.codecool.madmaps.DTO.Trip.TripActivityCreateDTO;
-import com.codecool.madmaps.model.TripActivity.TripActivity;
 import com.codecool.madmaps.service.TripService;
 import org.springframework.web.bind.annotation.*;
 
