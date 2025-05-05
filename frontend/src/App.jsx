@@ -16,7 +16,8 @@ function Layout({children}) {
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar/>
-            <div className="bg-cover bg-center flex items-center justify-center text-white text-center bg-[url(/home_1.jpg)] text-center justify-center items-center flex flex-grow">
+            <div
+                className="bg-cover bg-center flex items-center justify-center text-white text-center bg-[url(/home_1.jpg)] text-center justify-center items-center flex flex-grow">
                 {children}
             </div>
             <Footer/>
@@ -34,7 +35,10 @@ const ProtectedRoute = ({children}) => {
 }
 const router = createBrowserRouter([
     {path: "/", element: <Layout><HomePage/></Layout>},
-    {path: "/trip-editor/:tripId", element: <ProtectedRoute><Layout><MarkersProvider><TripPage/></MarkersProvider></Layout></ProtectedRoute>},
+    {
+        path: "/trip-editor/:tripId",
+        element: <ProtectedRoute><Layout><MarkersProvider><TripPage/></MarkersProvider></Layout></ProtectedRoute>
+    },
     {path: "/trip-list", element: <ProtectedRoute><Layout><TripListPage/></Layout></ProtectedRoute>},
     {path: "*", element: <ErrorPage/>},
     {path: "/login", element: <Layout><LoginPage/></Layout>},
