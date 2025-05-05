@@ -1,15 +1,15 @@
 import axios from "axios";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthProvider.jsx";
+import {useContext} from "react";
+import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../components/AuthProvider.jsx";
 
 const useAxios = () => {
-    const { token , logout} = useContext(AuthContext);
+    const {token, logout} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const axiosInstance = axios.create({
         baseURL: "/",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
     });
     axiosInstance.interceptors.request.use(
         (config) => {
