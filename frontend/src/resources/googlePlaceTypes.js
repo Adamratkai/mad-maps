@@ -53,7 +53,7 @@ export const googlePlaceTypes = [
     "liquor_store",
     "local_government_office",
     "locksmith",
-    "lodging", // This is considered the hotel type.
+    "lodging",
     "meal_delivery",
     "meal_takeaway",
     "mosque",
