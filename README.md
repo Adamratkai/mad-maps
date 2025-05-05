@@ -158,6 +158,7 @@ To simplify setup, a `example.env` file is already provided with the necessary *
 
 <img src="https://github.com/user-attachments/assets/6218a2b9-0839-4c2e-8a80-35dc34e900c9" width="400" alt="Screenshot of Trip Planner"/>
 <img src="https://github.com/user-attachments/assets/04276f23-e673-4293-878d-567d3967ccf1" width="400" alt="Screenshot of Trip Planner"/>
+
 ## Acknowledgments
 
 - [Best-README-Template](https://github.com/othneildrew/Best-README-Template) for the Readme structure
