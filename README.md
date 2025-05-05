@@ -79,36 +79,48 @@ To get a local copy up and running, follow these steps:
 
 1. Open a **terminal** and navigate to the directory where you would like to save the repository.
 
-2. **Clone the repository** to your machine by executing the command below in your **terminal**, then proceed with one of the installation options below.
+2. **Clone the repository** to your machine by executing the command below in your **terminal**, then proceed with the steps below.
    ```bash
    git clone https://github.com/Adamratkai/mad-maps.git
    ```
 
-To simplify setup, example `.env` files with the necessary **environment variables** are already provided in the **config** directory. You can modify their values to customize the app to your preferences, either by manually editing them or by running the provided **starter scripts**.
+To simplify setup, a `example.env` file is already provided with the necessary **environment variables**, except the **API_KEY**.
 
-#### With Docker (recommended)
+#### Docker
 
 1. **Ensure Docker is Running**
     - Start **Docker Desktop** or the **Docker daemon** on your system.
 
-3. **Access the Application**
+2. **Rename `.env` File**
+    - In the repository folder find the `.env` file
+    - Rename the `example.env` file to `.env`, simply remove the `example` part.
+
+3. **Add Google API Key**
+    - Add your Google API key to the **API_KEY** field in the `.env` file (you can request an api key here: https://console.cloud.google.com/freetrial)
+
+4. **Create and Run Docker Container**
+    - Execute the following command in your terminal:
+      ```bash
+      docker compose up --build
+      ```
+
+5. **Access the Application**
     - Open your browser and visit:  
       [http://localhost:3000](http://localhost:3000)
 
-5. Stopping the application
+6. **Stopping the Application**
+   - In your **terminal** press `Ctrl + C`
+   - If you want to **stop and remove the containers**, but **keep the database data** for future runs, execute:
+     ```bash
+     docker compose down
+     ```
+     In this case, the database will **persist** between runs, and your data will still be available next time you start the application.
 
-- In your **terminal** press `Ctrl + C`
-- If you want to **stop and remove the containers**, but **keep the database data** for future runs, execute:
-  ```bash
-  docker compose down
-  ```
-  In this case, the database will **persist** between runs, and your data will still be available next time you start the application.
-
-- If you want to **stop, remove the containers and delete the database data**, execute:
-  ```bash
-  docker compose down -v
-  ```
-  In this case, the database and all stored data will be completely removed.
+   - If you want to **stop, remove the containers and delete the database data**, execute:
+     ```bash
+     docker compose down -v
+     ```
+     In this case, the database and all stored data will be completely removed.
 
 
 ## Usage
@@ -153,3 +165,5 @@ To simplify setup, example `.env` files with the necessary **environment variabl
 
 - [Best-README-Template](https://github.com/othneildrew/Best-README-Template) for the Readme structure
 - [Shields.io](https://shields.io/) for the badges
+- [Google Maps API](https://developers.google.com/maps/documentation/javascript)for the google maps
+- [Google Places API](https://developers.google.com/maps/documentation/places/web-service)for the places
