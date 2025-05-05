@@ -1,12 +1,12 @@
 package com.codecool.madmaps.service;
 
 
-import com.codecool.madmaps.DTO.Jwt.JwtResponse;
+import com.codecool.madmaps.DTO.Jwt.JwtDTO;
+import com.codecool.madmaps.DTO.Traveller.CreateUserDTO;
+import com.codecool.madmaps.DTO.Traveller.UserDTO;
 import com.codecool.madmaps.model.Role.Role;
 import com.codecool.madmaps.model.Role.RoleType;
 import com.codecool.madmaps.model.Traveler.Traveller;
-import com.codecool.madmaps.model.payload.CreateUserRequest;
-import com.codecool.madmaps.model.payload.UserRequest;
 import com.codecool.madmaps.repository.RoleRepository;
 import com.codecool.madmaps.repository.TravellerRepository;
 import com.codecool.madmaps.security.jwt.JwtUtils;
@@ -49,20 +49,20 @@ public class TravellerService {
     }
 
 
-    public void registerUser(CreateUserRequest signUpRequest) {
+    public void registerUser(CreateUserDTO signUpRequest) {
         Role role = roleRepository.findByRoleType(RoleType.ROLE_USER).get();
         Traveller user = new Traveller();
-        user.setUserName(signUpRequest.getUsername());
-        user.setPassword(encoder.encode(signUpRequest.getPassword()));
-        user.setEmail(signUpRequest.getEmail());
+        user.setUserName(signUpRequest.username());
+        user.setPassword(encoder.encode(signUpRequest.password()));
+        user.setEmail(signUpRequest.email());
         user.setRoles(Set.of(role));
         travellerRepository.save(user);
     }
 
-    public JwtResponse loginUser(UserRequest loginRequest) {
+    public JwtDTO loginUser(UserDTO loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new
-                UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
-                loginRequest.getPassword()));
+                UsernamePasswordAuthenticationToken(loginRequest.email(),
+                loginRequest.password()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtToken = jwtUtils.generateJwtToken(authentication);
@@ -73,7 +73,7 @@ public class TravellerService {
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
-        return new JwtResponse(jwtToken, userDetails.getUsername(), roles);
+        return new JwtDTO(jwtToken, userDetails.getUsername(), roles);
 
     }
 }
