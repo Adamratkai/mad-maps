@@ -1,11 +1,11 @@
 package com.codecool.madmaps.service;
 
-import com.codecool.madmaps.DTO.Jwt.JwtResponse;
+import com.codecool.madmaps.DTO.Jwt.JwtDTO;
+import com.codecool.madmaps.DTO.Traveller.CreateUserDTO;
+import com.codecool.madmaps.DTO.Traveller.UserDTO;
 import com.codecool.madmaps.model.Role.Role;
 import com.codecool.madmaps.model.Role.RoleType;
 import com.codecool.madmaps.model.Traveler.Traveller;
-import com.codecool.madmaps.model.payload.CreateUserRequest;
-import com.codecool.madmaps.model.payload.UserRequest;
 import com.codecool.madmaps.repository.RoleRepository;
 import com.codecool.madmaps.repository.TravellerRepository;
 import com.codecool.madmaps.security.jwt.JwtUtils;
@@ -96,10 +96,7 @@ public class TravellerServiceTest {
 
     @Test
     void registerUser_SavesUserWithEncodedPassword() {
-        CreateUserRequest request = new CreateUserRequest();
-        request.setUsername("user");
-        request.setPassword("password");
-        request.setEmail("user@example.com");
+        CreateUserDTO request = new CreateUserDTO("user", "password", "user@example.com");
         Role role = new Role();
         role.setRoleType(RoleType.ROLE_USER);
 
@@ -118,10 +115,7 @@ public class TravellerServiceTest {
 
     @Test
     void registerUser_RoleNotFoundThrowsException() {
-        CreateUserRequest request = new CreateUserRequest();
-        request.setUsername("user");
-        request.setPassword("password");
-        request.setEmail("user@example.com");
+        CreateUserDTO request = new CreateUserDTO("user", "password", "user@example.com");
         when(roleRepository.findByRoleType(RoleType.ROLE_USER)).thenReturn(Optional.empty());
 
         assertThrows(RuntimeException.class, () -> travellerService.registerUser(request));
@@ -129,10 +123,7 @@ public class TravellerServiceTest {
 
     @Test
     void registerUser_PasswordIsEncoded() {
-        CreateUserRequest request = new CreateUserRequest();
-        request.setUsername("user");
-        request.setPassword("password");
-        request.setEmail("user@example.com");
+        CreateUserDTO request = new CreateUserDTO("user", "password", "user@example.com");
         when(roleRepository.findByRoleType(RoleType.ROLE_USER)).thenReturn(Optional.of(new Role()));
         when(encoder.encode("password")).thenReturn("encodedPassword");
 
@@ -143,9 +134,7 @@ public class TravellerServiceTest {
 
     @Test
     void loginUser_ValidCredentialsReturnsJwtResponse() {
-        UserRequest request = new UserRequest();
-        request.setEmail("user@example.com");
-        request.setPassword("password");
+        UserDTO request = new UserDTO("user@example.com", "password");
         Authentication auth = mock(Authentication.class);
         User userDetails = new User(
                 "user@example.com",
@@ -157,7 +146,7 @@ public class TravellerServiceTest {
         when(auth.getPrincipal()).thenReturn(userDetails);
         when(jwtUtils.generateJwtToken(auth)).thenReturn("testToken");
 
-        JwtResponse response = travellerService.loginUser(request);
+        JwtDTO response = travellerService.loginUser(request);
 
         assertEquals("testToken", response.token());
         assertEquals("user@example.com", response.username());
@@ -166,9 +155,7 @@ public class TravellerServiceTest {
 
     @Test
     void loginUser_InvalidCredentialsThrowsException() {
-        UserRequest request = new UserRequest();
-        request.setEmail("user@example.com");
-        request.setPassword("wrong");
+        UserDTO request = new UserDTO("user@example.com", "wrong");
         when(authenticationManager.authenticate(any()))
                 .thenThrow(new BadCredentialsException("Invalid credentials"));
 
@@ -177,9 +164,7 @@ public class TravellerServiceTest {
 
     @Test
     void loginUser_RolesMappedCorrectlyInResponse() {
-        UserRequest request = new UserRequest();
-        request.setEmail("user@example.com");
-        request.setPassword("password");
+        UserDTO request = new UserDTO("user@example.com", "password");
         Authentication auth = mock(Authentication.class);
         List<GrantedAuthority> authorities = List.of(
                 new SimpleGrantedAuthority("ROLE_USER"),
@@ -191,7 +176,7 @@ public class TravellerServiceTest {
         when(auth.getPrincipal()).thenReturn(userDetails);
         when(jwtUtils.generateJwtToken(auth)).thenReturn("testToken");
 
-        JwtResponse response = travellerService.loginUser(request);
+        JwtDTO response = travellerService.loginUser(request);
 
         assertTrue(response.roles().containsAll(List.of("ROLE_USER", "ROLE_ADMIN")));
     }

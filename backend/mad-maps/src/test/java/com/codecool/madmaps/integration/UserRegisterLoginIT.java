@@ -1,12 +1,10 @@
 package com.codecool.madmaps.integration;
 
-import com.codecool.madmaps.DTO.Jwt.JwtResponse;
-import com.codecool.madmaps.model.payload.CreateUserRequest;
-import com.codecool.madmaps.model.payload.UserRequest;
+import com.codecool.madmaps.DTO.Jwt.JwtDTO;
+import com.codecool.madmaps.DTO.Traveller.CreateUserDTO;
+import com.codecool.madmaps.DTO.Traveller.UserDTO;
 import com.codecool.madmaps.repository.TravellerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.cdimascio.dotenv.Dotenv;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +58,7 @@ public class UserRegisterLoginIT {
 
     @Test
     void testRegisterUserWhenUserIsValidThenResultIsUserSavedInDB () throws Exception {
-        CreateUserRequest registerRequest = new CreateUserRequest();
-        registerRequest.setUsername("testUser");
-        registerRequest.setEmail("test@example.com");
-        registerRequest.setPassword("password123");
+        CreateUserDTO registerRequest = new CreateUserDTO(TEST_USERNAME, TEST_PASSWORD, TEST_EMAIL);
 
         mockMvc.perform(post("/api/traveller/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -78,9 +73,7 @@ public class UserRegisterLoginIT {
     void testLoginUserWithValidCredentialsReturnsJwt() throws Exception {
         createTestUser();
 
-        UserRequest loginRequest = new UserRequest();
-        loginRequest.setEmail(TEST_EMAIL);
-        loginRequest.setPassword(TEST_PASSWORD);
+        UserDTO loginRequest = new UserDTO(TEST_EMAIL, TEST_PASSWORD);
 
         mockMvc.perform(post("/api/traveller/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -97,9 +90,7 @@ public class UserRegisterLoginIT {
     void testLoginUserWithInvalidCredentialsReturnsUnauthorized() throws Exception {
         createTestUser();
 
-        UserRequest invalidRequest = new UserRequest();
-        invalidRequest.setEmail(TEST_EMAIL);
-        invalidRequest.setPassword("wrongPassword");
+        UserDTO invalidRequest = new UserDTO(TEST_EMAIL, "wrongPassword");
 
         mockMvc.perform(post("/api/traveller/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -124,10 +115,7 @@ public class UserRegisterLoginIT {
     }
 
     private void createTestUser() throws Exception {
-        CreateUserRequest registerRequest = new CreateUserRequest();
-        registerRequest.setUsername(TEST_USERNAME);
-        registerRequest.setEmail(TEST_EMAIL);
-        registerRequest.setPassword(TEST_PASSWORD);
+        CreateUserDTO registerRequest = new CreateUserDTO(TEST_USERNAME, TEST_PASSWORD, TEST_EMAIL);
 
         mockMvc.perform(post("/api/traveller/register")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -135,9 +123,7 @@ public class UserRegisterLoginIT {
     }
 
     private String authenticateAndGetToken() throws Exception {
-        UserRequest loginRequest = new UserRequest();
-        loginRequest.setEmail(TEST_EMAIL);
-        loginRequest.setPassword(TEST_PASSWORD);
+        UserDTO loginRequest = new UserDTO(TEST_EMAIL, TEST_PASSWORD);
 
         MvcResult result = mockMvc.perform(post("/api/traveller/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -146,7 +132,7 @@ public class UserRegisterLoginIT {
                 .andReturn();
 
         String response = result.getResponse().getContentAsString();
-        return objectMapper.readValue(response, JwtResponse.class).token();
+        return objectMapper.readValue(response, JwtDTO.class).token();
     }
 }
 
