@@ -1,6 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
 
-function PhotosSlideShow({ photos }) {
+function PhotosSlideShow({photos}) {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const prevSlide = () => {
