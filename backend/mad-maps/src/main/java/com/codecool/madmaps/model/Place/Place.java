@@ -53,10 +53,4 @@ public class Place {
 
     private double longitude;
 
-    @Transient
-    public double calculateScore() {
-        //TODO
-        return 0;
-    }
-
 }
