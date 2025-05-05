@@ -12,7 +12,7 @@
     - [Prerequisites](#prerequisites)
     - [Installation Steps](#installation-steps)
 - [Usage](#usage)
-- [Acknowledgments](#acknowledgements)
+- [Acknowledgements](#acknowledgements)
 
 </details>
 
