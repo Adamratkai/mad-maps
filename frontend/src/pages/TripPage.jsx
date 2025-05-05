@@ -2,7 +2,7 @@ import GoogleMapComponent from '../components/trip/google-map/GoogleMapComponent
 import Recommendation from "../components/trip/recommendation/Recommendation.jsx";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
-import useAxios from "../components/useAxios.js";
+import useAxios from "../hooks/useAxios.js";
 import TripDetails from "../components/trip/trip-details/TripDetails.jsx";
 import {useMarkers} from "../components/MarkersContext.jsx";
 
@@ -48,7 +48,11 @@ function TripPage() {
                 setTripDetail(response.data);
                 setActivities(response.data.tripActivities);
                 response.data.tripActivities.map(activity => {
-                    setMarkers(prev => [...prev, {lat: activity.placeDTO.location.lat, lng: activity.placeDTO.location.lng, selected: false}]);
+                    setMarkers(prev => [...prev, {
+                        lat: activity.placeDTO.location.lat,
+                        lng: activity.placeDTO.location.lng,
+                        selected: false
+                    }]);
                 })
             } catch (error) {
                 console.error("Error fetching places:", error);
@@ -63,11 +67,11 @@ function TripPage() {
 
     return (
         <div className="flex flex-col p-4">
-        <div className="flex flex-grow justify-center gap-4 mb-4">
-                <GoogleMapComponent onLocationChange={handleLocationChange} onTypeSelect={handleSelectPlaceType} />
-            {activities &&
-                <TripDetails tripDetail={tripDetail} activities={activities}/>
-            }</div>
+            <div className="flex flex-grow justify-center gap-4 mb-4">
+                <GoogleMapComponent onLocationChange={handleLocationChange} onTypeSelect={handleSelectPlaceType}/>
+                {activities &&
+                    <TripDetails tripDetail={tripDetail} activities={activities}/>
+                }</div>
             {location &&
                 <div className="flex justify-center mt-4 max-w-[80vw] overflow-y-auto px-4 box-border">
                     <Recommendation location={location} onAddPlace={handleAddPlace} placeType={placeType}/>
