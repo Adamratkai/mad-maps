@@ -30,6 +30,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        VITE_GOOGLE_MAPS_API_KEY: ${API_KEY}
     container_name: mad_maps-frontend
     restart: always
     depends_on:
@@ -38,9 +40,6 @@ services:
       - "3000:80"
     env_file:
       - .env
-    environment:
-      VITE_GOOGLE_MAPS_API_KEY: ${API_KEY}
-      VITE_API_URL: http://localhost:8080
 
 volumes:
   postgres_data:
