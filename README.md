@@ -12,7 +12,7 @@
     - [Prerequisites](#prerequisites)
     - [Installation Steps](#installation-steps)
 - [Usage](#usage)
-- [Acknowledgments](#acknowledgments)
+- [Acknowledgments](#acknowledgements)
 
 </details>
 
@@ -84,7 +84,7 @@ To get a local copy up and running, follow these steps:
    git clone https://github.com/Adamratkai/mad-maps.git
    ```
 
-To simplify setup, a `example.env` file is already provided with the necessary **environment variables**, except the **API_KEY**.
+To simplify setup, an `example.env` file is already provided with the necessary **environment variables**, except the **API_KEY**.
 
 #### Docker
 
@@ -165,5 +165,5 @@ To simplify setup, a `example.env` file is already provided with the necessary *
 
 - [Best-README-Template](https://github.com/othneildrew/Best-README-Template) for the Readme structure
 - [Shields.io](https://shields.io/) for the badges
-- [Google Maps API](https://developers.google.com/maps/documentation/javascript)for the google maps
-- [Google Places API](https://developers.google.com/maps/documentation/places/web-service)for the places
+- [Google Maps API](https://developers.google.com/maps/documentation/javascript) for the Google Maps
+- [Google Places API](https://developers.google.com/maps/documentation/places/web-service) for the places
