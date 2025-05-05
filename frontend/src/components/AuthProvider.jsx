@@ -7,7 +7,7 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem("token") || null);
     const [error, setError] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token")!==null || false);
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") !== null || false);
     const login = async (email, password) => {
         try {
             const response = await axios.post("/api/traveller/login", {email, password});
@@ -37,7 +37,6 @@ export const AuthProvider = ({children}) => {
             return null;
         } catch (error) {
             setError(error.response.data.message);
-            console.log(error.response.data.message);
             return error;
         }
     }
@@ -47,7 +46,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value={{user, setUser, login, register, logout, error, token,isLoggedIn,onPageChange}}>
+        <AuthContext.Provider value={{user, setUser, login, register, logout, error, token, isLoggedIn, onPageChange}}>
             {children}
         </AuthContext.Provider>
     )
