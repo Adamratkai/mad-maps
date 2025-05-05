@@ -20,7 +20,7 @@
 ## About The Project
 
 Looking for a simple way to plan your next trip?
-**Mad-Maps** is an interactive travel planning web application that helps create **personalized itineraries** with the help of integrated Google Maps features and intelligent place recommendations. Whether you're exploring a new city or planning your next getaway, Mad-Maps simplifies the process of finding, selecting, and organizing your trip destinations.
+**Mad-Maps** is an interactive travel planning web application that helps create **personalized itineraries** with the help of integrated **Google Maps** features and relevant place recommendations. Whether you're exploring a new city or planning your next getaway, Mad-Maps simplifies the process of finding, selecting, and organizing your trip destinations.
 
 ### Features
 
@@ -34,24 +34,24 @@ Looking for a simple way to plan your next trip?
 
 Mad-Maps is designed for performance, reliability, and ease of use—whether you're a casual traveler or an itinerary perfectionist.
 
-<img src="https://github.com/user-attachments/assets/497353d9-3526-4493-8abe-7fb0c855458e" width="400" alt="Screenshot of Trip Planner"/> <br>
+<img src="https://github.com/user-attachments/assets/69450345-fbf3-49f5-afc6-3d6b9e5c4eff" width="600" alt="Screenshot of Trip Planner"/> <br>
 
 
 ## Built With
 
 - **Backend:**  
-  [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
+  [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
 
 - **Frontend:**  
-  [![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://reactjs.org/)  
-  [![NGINX](https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white)](https://www.nginx.com/)
-  [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)  
+  [![NGINX](https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=white)](https://www.nginx.com/)
+  [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 - **Database:**  
-  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
 - **Containerization:**  
-  [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)  
+  [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)  
   
 
 
@@ -89,7 +89,7 @@ To simplify setup, example `.env` files with the necessary **environment variabl
 1. **Ensure Docker is Running**
     - Start **Docker Desktop** or the **Docker daemon** on your system.
 
-3**Access the Application**
+3. **Access the Application**
     - Open your browser and visit:  
       [http://localhost:3000](http://localhost:3000)
 
@@ -140,13 +140,13 @@ To simplify setup, example `.env` files with the necessary **environment variabl
     - The places you’ve added to your trip will be displayed in the trip’s box in the order you added them.
     - You can expand each place to reveal its details again.
 
-<img src="https://github.com/user-attachments/assets/274732c7-69b9-4d1d-b806-e85ac5f04674" width="400" alt="Screenshot of Trip Planner" />
+<img src="https://github.com/user-attachments/assets/274732c7-69b9-4d1d-b806-e85ac5f04674" width="600" alt="Screenshot of Trip Planner" />
 
-<img src="https://github.com/user-attachments/assets/497353d9-3526-4493-8abe-7fb0c855458e" width="400" alt="Screenshot of Trip Planner" />
+<img src="https://github.com/user-attachments/assets/497353d9-3526-4493-8abe-7fb0c855458e" width="600" alt="Screenshot of Trip Planner" />
 
-<img src="https://github.com/user-attachments/assets/6218a2b9-0839-4c2e-8a80-35dc34e900c9" width="400" alt="Screenshot of Trip Planner"/>
-<img src="https://github.com/user-attachments/assets/04276f23-e673-4293-878d-567d3967ccf1" width="400" alt="Screenshot of Trip Planner"/>
-## Acknowledgments
+<img src="https://github.com/user-attachments/assets/6218a2b9-0839-4c2e-8a80-35dc34e900c9" width="600" alt="Screenshot of Trip Planner"/>
+
+## Acknowledgements
 
 - [Best-README-Template](https://github.com/othneildrew/Best-README-Template) for the Readme structure
 - [Shields.io](https://shields.io/) for the badges
