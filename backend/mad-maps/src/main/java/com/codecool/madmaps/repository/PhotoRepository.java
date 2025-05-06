@@ -1,6 +1,6 @@
 package com.codecool.madmaps.repository;
 
-import com.codecool.madmaps.model.Photo.Photo;
+import com.codecool.madmaps.model.Photo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

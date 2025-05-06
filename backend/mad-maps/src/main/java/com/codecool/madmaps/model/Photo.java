@@ -1,6 +1,5 @@
-package com.codecool.madmaps.model.Photo;
+package com.codecool.madmaps.model;
 
-import com.codecool.madmaps.model.Place.Place;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

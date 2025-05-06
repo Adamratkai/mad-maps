@@ -1,8 +1,6 @@
-package com.codecool.madmaps.model.Trip;
+package com.codecool.madmaps.model;
 
 
-import com.codecool.madmaps.model.Traveler.Traveller;
-import com.codecool.madmaps.model.TripActivity.TripActivity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

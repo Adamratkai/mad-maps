@@ -1,7 +1,5 @@
-package com.codecool.madmaps.model.Place;
+package com.codecool.madmaps.model;
 
-import com.codecool.madmaps.model.Photo.Photo;
-import com.codecool.madmaps.model.PlaceType.PlaceType;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

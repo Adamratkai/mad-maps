@@ -1,6 +1,6 @@
 package com.codecool.madmaps.repository;
 
-import com.codecool.madmaps.model.Traveler.Traveller;
+import com.codecool.madmaps.model.Traveller;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

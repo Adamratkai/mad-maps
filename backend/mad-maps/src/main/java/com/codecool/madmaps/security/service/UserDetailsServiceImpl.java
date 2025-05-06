@@ -1,7 +1,7 @@
 package com.codecool.madmaps.security.service;
 
 import com.codecool.madmaps.model.Role.Role;
-import com.codecool.madmaps.model.Traveler.Traveller;
+import com.codecool.madmaps.model.Traveller;
 import com.codecool.madmaps.repository.TravellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

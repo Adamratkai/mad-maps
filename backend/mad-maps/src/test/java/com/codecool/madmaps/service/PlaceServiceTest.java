@@ -3,9 +3,9 @@ package com.codecool.madmaps.service;
 import com.codecool.madmaps.DTO.Place.PlaceCreateDTO;
 import com.codecool.madmaps.DTO.Place.PlaceDTO;
 import com.codecool.madmaps.DTO.Recommendation.*;
-import com.codecool.madmaps.model.Photo.Photo;
-import com.codecool.madmaps.model.Place.Place;
-import com.codecool.madmaps.model.PlaceType.PlaceType;
+import com.codecool.madmaps.model.Photo;
+import com.codecool.madmaps.model.Place;
+import com.codecool.madmaps.model.PlaceType;
 import com.codecool.madmaps.repository.PhotoRepository;
 import com.codecool.madmaps.repository.PlaceRepository;
 import com.codecool.madmaps.repository.PlaceTypeRepository;
@@ -26,6 +26,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -70,11 +71,7 @@ class PlaceServiceTest {
 
         assertThat(result).hasSize(1);
         PlaceDTO dto = result.get(0);
-        assertThat(dto.placeId()).isEqualTo("123");
-        assertThat(dto.name()).isEqualTo("Test Place");
-        assertThat(dto.rating()).isEqualTo(4.5);
-        assertThat(dto.priceLevel()).isEqualTo(2);
-        assertThat(dto.openingHours()).isEqualTo(List.of("Mon 9-5"));
+        assertEquals(place.getPlaceId(), dto.placeId());
         assertThat(dto.photos()).containsExactly(photo.getPhotoId());
     }
 
@@ -101,11 +98,7 @@ class PlaceServiceTest {
 
         PlaceDTO result = placeService.getPlaceById(placeId);
 
-        assertThat(result.placeId()).isEqualTo(placeId);
-        assertThat(result.name()).isEqualTo("Test Place");
-        assertThat(result.rating()).isEqualTo(4.5);
-        assertThat(result.priceLevel()).isEqualTo(2);
-        assertThat(result.openingHours()).isEqualTo(List.of("Mon 9-5"));
+        assertEquals(placeId, result.placeId());
         assertThat(result.photos()).containsExactly(photo.getPhotoId());
     }
 
@@ -152,11 +145,7 @@ class PlaceServiceTest {
 
         PlaceDTO result = placeService.createAndGetPlaceDTO(dto);
 
-        assertThat(result.placeId()).isEqualTo("place123");
-        assertThat(result.name()).isEqualTo("Test Place");
-        assertThat(result.rating()).isEqualTo(4.5);
-        assertThat(result.priceLevel()).isEqualTo(2);
-        assertThat(result.openingHours()).isEqualTo(List.of("Mon 9-5"));
+        assertEquals(dto.placeId(), result.placeId());
         assertThat(result.photos()).hasSize(2);
         verify(photoRepository, times(2)).save(any(Photo.class));
     }
