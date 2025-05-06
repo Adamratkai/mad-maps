@@ -1,11 +1,11 @@
 package com.codecool.madmaps.service;
 
 import com.codecool.madmaps.DTO.Trip.*;
-import com.codecool.madmaps.model.Photo.Photo;
-import com.codecool.madmaps.model.Place.Place;
-import com.codecool.madmaps.model.Traveler.Traveller;
-import com.codecool.madmaps.model.Trip.Trip;
-import com.codecool.madmaps.model.TripActivity.TripActivity;
+import com.codecool.madmaps.model.Photo;
+import com.codecool.madmaps.model.Place;
+import com.codecool.madmaps.model.Traveller;
+import com.codecool.madmaps.model.Trip;
+import com.codecool.madmaps.model.TripActivity;
 import com.codecool.madmaps.repository.PlaceRepository;
 import com.codecool.madmaps.repository.TripActivityRepository;
 import com.codecool.madmaps.repository.TripRepository;

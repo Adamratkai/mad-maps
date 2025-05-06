@@ -1,4 +1,4 @@
-package com.codecool.madmaps.model.Traveler;
+package com.codecool.madmaps.model;
 
 import com.codecool.madmaps.model.Role.Role;
 import jakarta.persistence.*;

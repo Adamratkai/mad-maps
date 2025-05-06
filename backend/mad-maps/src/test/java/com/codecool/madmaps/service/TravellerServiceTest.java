@@ -5,7 +5,7 @@ import com.codecool.madmaps.DTO.Traveller.CreateUserDTO;
 import com.codecool.madmaps.DTO.Traveller.UserDTO;
 import com.codecool.madmaps.model.Role.Role;
 import com.codecool.madmaps.model.Role.RoleType;
-import com.codecool.madmaps.model.Traveler.Traveller;
+import com.codecool.madmaps.model.Traveller;
 import com.codecool.madmaps.repository.RoleRepository;
 import com.codecool.madmaps.repository.TravellerRepository;
 import com.codecool.madmaps.security.jwt.JwtUtils;

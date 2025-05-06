@@ -1,4 +1,4 @@
-package com.codecool.madmaps.model.PlaceType;
+package com.codecool.madmaps.model;
 
 import jakarta.persistence.*;
 import lombok.*;
