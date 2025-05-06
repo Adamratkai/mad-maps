@@ -91,8 +91,8 @@ To simplify setup, an `example.env` file is already provided with the necessary 
 1. **Ensure Docker is Running**
     - Start **Docker Desktop** or the **Docker daemon** on your system.
 
-2. **Rename `.env` File**
-    - In the repository folder find the `.env` file
+2. **Rename `example.env` File**
+    - In the repository folder find the `example.env` file
     - Rename the `example.env` file to `.env`, simply remove the `example` part.
 
 3. **Add Google API Key**
