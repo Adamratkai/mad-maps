@@ -15,7 +15,7 @@ import java.util.UUID;
 @RequestMapping("api/photos")
 public class PhotoController {
 
-    PlaceService placeService;
+    private final PlaceService placeService;
 
     public PhotoController(PlaceService placeService) {
         this.placeService = placeService;
