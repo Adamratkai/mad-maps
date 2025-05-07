@@ -154,11 +154,11 @@ To simplify setup, an `example.env` file is already provided with the necessary 
     - The places you’ve added to your trip will be displayed in the trip’s box in the order you added them.
     - You can expand each place to reveal its details again.
 <p align="center">
-<img src="https://github.com/user-attachments/assets/ff488526-e087-4e43-b433-f9c9b8277b03" width="600" alt="Screenshot of Trip Planner" />
+<img src="https://github.com/user-attachments/assets/abc4063a-186e-493b-9399-82ca51530174" width="600" alt="Screenshot of Trip Planner" />
 
 <img src="https://github.com/user-attachments/assets/b73482fa-77c4-4ad4-a991-95094e1860b1" width="600" alt="Screenshot of Trip Planner"/>
 
-<img src="https://github.com/user-attachments/assets/01077170-9a33-468d-a500-38d60d3275c5" width="600" alt="Screenshot of Trip Planner" />
+<img src="https://github.com/user-attachments/assets/317c8422-f9e9-48d1-b34a-c1d2980aad0f" width="600" alt="Screenshot of Trip Planner" />
 </p>
 
 ## Acknowledgements
