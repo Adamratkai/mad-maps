@@ -30,12 +30,12 @@ Looking for a simple way to plan your next trip?
 - 🧳 **Trip builder** with expandable/collapsible activity cards
 - 🔐 **JWT-based authentication** with role-based access control
 - 🐳 **Dockerized** with Docker Compose
-- 🔄 **CI/CD pipeline** using GitHub Actions (build + test)
+- 🔄 **CI pipeline** using GitHub Actions (build + test)
 
 Mad-Maps is designed for performance, reliability, and ease of use—whether you're a casual traveler or an itinerary perfectionist.
 
 <p align="center">
-<img src="https://github.com/user-attachments/assets/69450345-fbf3-49f5-afc6-3d6b9e5c4eff" width="600" alt="Screenshot of Trip Planner"/> <br>
+<img src="https://github.com/user-attachments/assets/708e5117-5d3c-4a93-923b-bba91c080b9f" width="600" alt="Screenshot of Trip Planner"/> <br>
 </p>
 
 
@@ -154,11 +154,11 @@ To simplify setup, an `example.env` file is already provided with the necessary 
     - The places you’ve added to your trip will be displayed in the trip’s box in the order you added them.
     - You can expand each place to reveal its details again.
 <p align="center">
-<img src="https://github.com/user-attachments/assets/274732c7-69b9-4d1d-b806-e85ac5f04674" width="600" alt="Screenshot of Trip Planner" />
+<img src="https://github.com/user-attachments/assets/ff488526-e087-4e43-b433-f9c9b8277b03" width="600" alt="Screenshot of Trip Planner" />
 
-<img src="https://github.com/user-attachments/assets/6218a2b9-0839-4c2e-8a80-35dc34e900c9" width="600" alt="Screenshot of Trip Planner"/>
+<img src="https://github.com/user-attachments/assets/b73482fa-77c4-4ad4-a991-95094e1860b1" width="600" alt="Screenshot of Trip Planner"/>
 
-<img src="https://github.com/user-attachments/assets/497353d9-3526-4493-8abe-7fb0c855458e" width="600" alt="Screenshot of Trip Planner" />
+<img src="https://github.com/user-attachments/assets/01077170-9a33-468d-a500-38d60d3275c5" width="600" alt="Screenshot of Trip Planner" />
 </p>
 
 ## Acknowledgements
